@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:fontFamily="@font/gilroymedium"
+                android:text="Rating"
+                android:textColor="@color/color_black"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/img_close"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="20dp"
+                android:padding="3dp"
+                android:src="@drawable/ic_outline_close_24"
+                app:tint="@color/color_black" />
+        </RelativeLayout>
+
+        <RatingBar
+            android:id="@+id/ratingbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="-20dp"
+            android:max="5"
+            android:scaleX=".7"
+            android:scaleY=".7"
+            android:stepSize="1" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height=".3dp"
+            android:layout_marginVertical="10dp"
+            android:background="@color/light_gray" />
+
+        <EditText
+            android:id="@+id/etDes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginVertical="10dp"
+            android:background="@android:color/transparent"
+            android:gravity="start"
+            android:hint="Tell Us Somthing..."
+            android:minHeight="60dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height=".3dp"
+            android:layout_marginVertical="5dp"
+            android:background="@color/light_gray" />
+
+        <TextView
+            android:id="@+id/tvSubmit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="10dp"
+            android:background="@drawable/bg_yellowbtn"
+            android:fontFamily="@font/gilroymedium"
+            android:gravity="center"
+            android:minWidth="300dp"
+            android:minHeight="40dp"
+            android:text="Submit"
+            android:textColor="@color/color_black"
+            android:textSize="16dp" />
+    </LinearLayout>
+</layout>

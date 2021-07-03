@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radioBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="8dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingEnd="10dp">
+
+                <TextView
+                    android:layout_marginVertical="5dp"
+                    android:fontFamily="@font/gilroymedium"
+                    android:id="@+id/tvUserName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="@color/color_black"
+                    tools:text="Anurag Savaliya" />
+
+                <TextView
+                    android:layout_marginVertical="5dp"
+                    android:fontFamily="@font/gilroymedium"
+                    android:id="@+id/tvType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:background="@drawable/bg_offwhiteround"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="2dp"
+                    android:text="Home"
+                    android:textSize="12sp"
+                    android:textColor="@color/color_black" />
+
+                <TextView
+                    android:layout_marginVertical="5dp"
+                    android:id="@+id/tvAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvUserName"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:textSize="14sp"
+                    tools:text="187 kshama soc hirabaug ak road surat dharamnagar hirabag " />
+
+                <TextView
+                    android:layout_marginVertical="5dp"
+                    android:layout_marginEnd="70dp"
+                    android:fontFamily="@font/gilroymedium"
+                    android:id="@+id/tvDefult"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:background="@drawable/bg_yellowbtn"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="2dp"
+                    android:text="Default"
+                    android:textSize="12sp"
+                    android:textColor="@color/color_black" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_marginVertical="5dp"
+                android:id="@+id/tvMobile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                tools:text="7801916340" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="10dp"
+                android:alpha=".7"
+                android:background="@color/color_gray_lightbtn" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

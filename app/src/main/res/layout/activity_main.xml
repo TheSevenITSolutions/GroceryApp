@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <com.infideap.drawerbehavior.Advance3DDrawerLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/drawer_layout"
+        android:background="@color/colorPrimary"
+        android:fitsSystemWindows="true"
+        tools:openDrawer="start">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/appbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_marginStart="10dp"
+                        android:id="@+id/appbar_imgmenu"
+                        android:layout_width="30dp"
+                        android:layout_height="60dp"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_sharp_menu_24"
+                        app:tint="@color/color_black" />
+
+                    <TextView
+                        android:layout_marginStart="20dp"
+                        android:layout_toEndOf="@+id/appbar_imgmenu"
+                        android:fontFamily="@font/gilroymedium"
+                        android:textColor="@color/color_black"
+                        android:id="@+id/tv_navtitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:textSize="18sp"
+                        android:text="Title" />
+
+                    <ImageView
+                        android:padding="8dp"
+                        android:tint="@color/color_black"
+                        android:background="@drawable/bg_iconbackyellow"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:id="@+id/appbar_imgsearch"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="50dp"
+                        android:src="@drawable/ic_baseline_search_24" />
+
+                    <ImageView
+                        android:padding="8dp"
+                        android:src="@drawable/shoppingbags"
+                        android:background="@drawable/bg_iconbackyellow"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:id="@+id/appbar_imgcart"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="5dp"
+                        app:tint="@color/color_black" />
+
+
+                </RelativeLayout>
+            </androidx.appcompat.widget.Toolbar>
+
+            <FrameLayout
+                android:background="@color/color_white"
+                android:id="@+id/frame"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </FrameLayout>
+        </LinearLayout>
+
+        <com.google.android.material.navigation.NavigationView
+            android:layout_width="250dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start">
+
+            <include
+                android:id="@+id/nav_toolbar"
+                layout="@layout/drawer_layout_file" />
+        </com.google.android.material.navigation.NavigationView>
+
+    </com.infideap.drawerbehavior.Advance3DDrawerLayout>
+</layout>

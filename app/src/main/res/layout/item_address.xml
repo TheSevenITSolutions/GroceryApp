@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="10dp"
+            android:text="name"
+            android:textColor="@color/color_black"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:id="@+id/lyt1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="80dp"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_gravity="center_vertical"
+                android:fontFamily="@font/gilroymedium"
+                android:gravity="center"
+                android:paddingVertical="2dp"
+                android:paddingHorizontal="10dp"
+                android:background="@drawable/bg_offwhiteround"
+                android:layout_marginHorizontal="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_black"
+                android:text="Name"
+                android:id="@+id/tvType"
+                android:textSize="12sp" />
+
+            <TextView
+
+                android:layout_gravity="center_vertical"
+                android:fontFamily="@font/gilroymedium"
+                android:gravity="center"
+                android:paddingVertical="2dp"
+                android:paddingHorizontal="10dp"
+                android:background="@drawable/bg_yellowbtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_black"
+                android:text="Defult"
+                android:id="@+id/tvDefult"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:id="@+id/imgEdit"
+            android:layout_marginEnd="30dp"
+            android:padding="3dp"
+            android:src="@drawable/ic_baseline_edit_24"
+            android:layout_alignParentEnd="true"
+            app:tint="@color/colorPrimary" />
+
+        <ImageView
+            android:id="@+id/imgDelete"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentEnd="true"
+            android:padding="3dp"
+            android:src="@drawable/ic_outline_delete_24" />
+
+        <TextView
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvAddress"
+            android:textSize="12sp"
+            android:fontFamily="@font/gilroymedium"
+            android:layout_below="@id/lyt1"
+            tools:text="187 ,kshma soc hirabaug dharamnagar surat 395006" />
+
+        <TextView
+            android:layout_marginTop="10dp"
+            tools:text="7801916340"
+            android:layout_marginBottom="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:id="@+id/tvMobile"
+            android:layout_below="@id/tvAddress" />
+
+        <View
+            android:alpha=".7"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/tvMobile"
+            android:background="@color/color_gray_lightbtn" />
+    </RelativeLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

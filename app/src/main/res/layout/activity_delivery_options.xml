@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activities.DeliveryOptionsActivity">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/lyt_appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:paddingVertical="10dp">
+
+                <ImageView
+                    app:tint="@color/color_black"
+                    android:id="@+id/img_aerrow_back"
+                    android:layout_width="45dp"
+                    android:layout_height="35dp"
+                    android:layout_centerVertical="true"
+                    android:onClick="onClickBack"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_sharp_arrow_back_24" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@id/img_aerrow_back"
+                    android:text="Delivery Details"
+                    android:textColor="@color/color_black"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:layout_width="45dp"
+                    android:layout_height="35dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
+                    android:onClick="onClickadd"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_baseline_add_24"
+                    app:tint="@color/color_black" />
+
+            </RelativeLayout>
+        </androidx.appcompat.widget.Toolbar>
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/lyt_appbar">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_above="@+id/lytbottom"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/lyt_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal"
+                    android:paddingStart="15dp">
+
+            <ImageView
+                android:layout_gravity="center"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_baseline_location_on_24"
+                app:tint="@color/color_black" />
+
+                    <TextView
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/gilroymedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="7dp"
+                        android:text="Deliver To"
+                        android:textColor="@color/color_black"
+                        android:textSize="22sp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="10dp"
+                    android:alpha=".7"
+                    android:background="@color/color_gray_lightbtn" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lytbottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#E8E7E7" />
+
+                <LinearLayout
+                    android:layout_height="70dp"
+                    android:elevation="7dp"
+                    android:id="@+id/lyt_bottom"
+                    android:layout_width="match_parent"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:elevation="5dp"
+                        android:paddingHorizontal="120dp"
+                        android:id="@+id/tvPay"
+                        android:textSize="16sp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/bg_yellowbtn"
+                        android:gravity="center"
+                        android:paddingVertical="10dp"
+                        android:text="Proceed To Pay"
+                        android:textColor="@color/color_black" />
+                </LinearLayout>
+
+            </LinearLayout>
+</RelativeLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <ProgressBar
+            android:id="@+id/pd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:indeterminateTint="@color/colorPrimary"
+            android:visibility="gone" />
+
+            <RelativeLayout
+                android:id="@+id/lyt404"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_centerInParent="true"
+                android:background="@color/color_white"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:src="@drawable/nodata" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/gilroymedium"
+                    android:gravity="bottom"
+                    android:scrollbarSize="22dp"
+                    android:text="No Data Found"
+                    android:textColor="@color/colorPrimary" />
+            </RelativeLayout>
+
+    </RelativeLayout>
+
+</layout>

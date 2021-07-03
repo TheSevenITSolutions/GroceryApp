@@ -1,0 +1,44 @@
+<resources>
+    <string name="app_name">DelightBasket</string>
+    <string name="title_activity_nav_drawer">NavDrawerActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="raise_a_complaint">Raise a Complaint</string>
+    <string name="faqs">FAQs</string>
+    <string name="user_name">User Name</string>
+    <string name="home">Home</string>
+    <string name="review_cart">Review Cart</string>
+    <string name="my_profile">My Profile</string>
+    <string name="notification">Notification</string>
+    <string name="log_in">Log In</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="name">Name*</string>
+    <string name="email">Email</string>
+    <string name="signin_to_continue">Sign In to Continue</string>
+    <string name="signup_to_continue">Sign Up to Continue</string>
+    <string name="do_not_have_account">Don\'t have an account?</string>
+    <string name="ph_no">Phone Number*</string>
+    <string name="password">Password*</string>
+    <string name="dummt_strind_product">An apple is an edible fruit produced by an apple tree (Malus domestica). Apple trees are cultivated worldwide and are the most widely grown species in the genus Malus. The tree originated in Central Asia, where its wild ancestor, Malus sieversii, is still found today.</string>
+    <string name="add">Add</string>
+    <string name="move_from_wish_list">Remove From \n WishList</string>
+
+
+    <string name="map_key" translatable="true">---</string>
+    <string name="currency">$</string>
+
+    <string name="contactno">18008901790</string>
+    <string name="supportemail">Support@gmail.com</string>
+    <string name="msg_NO_INTERNET_RESPOND">No internet connection</string>
+     <string name="categories">Categories</string>
+</resources>

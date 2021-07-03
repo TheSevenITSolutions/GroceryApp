@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="Catogery"
+            type="com.delightbasket.grocery.model.MainCategory.Data1" />
+    </data>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".activities.AllProductsActivity">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/lyt_appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp">
+
+                <ImageView
+                    android:id="@+id/img_aerrow_back"
+                    android:layout_width="45dp"
+                    android:layout_height="35dp"
+                    android:layout_centerVertical="true"
+                    android:onClick="onClickBack"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_sharp_arrow_back_24"
+                    app:tint="@color/color_black" />
+
+                <TextView
+                    android:id="@+id/tv_categoryname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_toEndOf="@id/img_aerrow_back"
+                    android:fontFamily="@font/gilroymedium"
+                    android:text="Catogery"
+                    android:textColor="@color/color_black"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:orientation="horizontal"
+                    android:paddingEnd="5dp">
+
+                    <ImageView
+                        android:id="@+id/img_sort"
+                        android:layout_width="35dp"
+                        android:layout_height="45dp"
+                        android:onClick="onClickSort"
+                        android:src="@drawable/ic_outline_sort_24"
+                        app:tint="@color/color_black" />
+
+                    <ImageView
+                        android:id="@+id/img_filter"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:src="@drawable/app_placeholder"
+                        android:visibility="gone" />
+
+                    <ImageView
+                        android:id="@+id/img_search"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:src="@drawable/app_placeholder"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+            </RelativeLayout>
+        </androidx.appcompat.widget.Toolbar>
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/lyt_appbar">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/pd2"
+                android:layout_below="@id/lyt_appbar"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+
+                <EditText
+                    android:id="@+id/et_searchProduct"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="25dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/bg_etsearch_offwhite"
+                    android:drawableEnd="@android:drawable/ic_menu_search"
+                    android:hint="Search for items in the store "
+                    android:imeOptions="actionDone"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="5dp"
+                    android:paddingStart="15dp"
+                    android:singleLine="true"
+                    android:visibility="gone" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvMainCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:nestedScrollingEnabled="true"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:spanCount="2"
+                    tools:listitem="@layout/item_main_category_images" />
+
+            </LinearLayout>
+
+            <ProgressBar
+                android:id="@+id/pd2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:visibility="gone" />
+
+            <RelativeLayout
+                android:id="@+id/lyt_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="20dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tv_itemCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
+                    android:fontFamily="@font/gilroyextrabold"
+                    android:text="2 items"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:id="@+id/tv_sumPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="40dp"
+                    android:layout_toRightOf="@+id/tv_itemCount"
+                    android:fontFamily="@font/gilroymedium"
+                    android:text="$ 46.00"
+                    android:textColor="@android:color/holo_green_dark"
+                    android:textSize="17sp" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/bg_yellowbtn">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="30dp"
+                        android:layout_marginVertical="10dp"
+                        android:fontFamily="@font/gilroyextrabold"
+                        android:text="Continue"
+                        android:textColor="@color/color_black"
+                        android:textSize="17sp" />
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/lyt_appbar"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
+                android:background="@color/color_white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+
+                    <include
+                        layout="@layout/shimmercard"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="100dp" />
+
+                    <include
+                        layout="@layout/shimmercard"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="10dp" />
+
+                    <include
+                        layout="@layout/shimmercard"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="10dp" />
+
+                    <include
+                        layout="@layout/shimmercard"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="10dp" />
+
+                    <include
+                        layout="@layout/shimmercard"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="10dp" />
+
+                    <include
+                        layout="@layout/shimmercard"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="10dp" />
+
+                    <include
+                        layout="@layout/shimmercard"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="10dp" />
+
+                    <include
+                        layout="@layout/shimmercard"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="10dp" />
+
+                    <include
+                        layout="@layout/shimmercard"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="10dp" />
+                </LinearLayout>
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+            <ProgressBar
+                android:id="@+id/pd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="gone" />
+
+            <RelativeLayout
+
+                android:id="@+id/lyt404"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:background="@color/color_white"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <ImageView
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:src="@drawable/nodata" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/gilroymedium"
+                    android:gravity="bottom"
+                    android:scrollbarSize="22dp"
+                    android:text="No Data Found"
+                    android:textColor="@color/colorPrimary" />
+            </RelativeLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    </RelativeLayout>
+</layout>

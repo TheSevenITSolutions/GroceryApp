@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:padding="5dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/bg_whitebtn"
+                android:id="@+id/drawer_img_profile"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="30dp"
+                />
+
+            <TextView
+                android:textSize="14sp"
+                android:id="@+id/drawer_tv_uname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="60dp"
+                android:layout_toEndOf="@id/drawer_img_profile"
+                android:text="" />
+
+            <TextView
+                android:textSize="12sp"
+                android:id="@+id/drawer_tv_umobile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/drawer_tv_uname"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_toEndOf="@id/drawer_img_profile"
+                android:text="" />
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:paddingStart="20dp"
+                android:orientation="vertical"
+                android:paddingBottom="40dp">
+
+                <RelativeLayout
+                    android:id="@+id/nav_home"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/nav_drawer_rvpadding">
+
+                    <ImageView
+                        android:layout_width="@dimen/nav_drawericonsize"
+                        android:layout_height="@dimen/nav_drawericonsize"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/home" />
+
+                    <TextView
+                        android:id="@+id/tv_home"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="50dp"
+                        android:text="@string/home"
+                        android:textSize="@dimen/nav_drawertextsize" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/nav_cart"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/nav_drawer_rvpadding">
+
+                    <ImageView
+                        android:layout_width="@dimen/nav_drawericonsize"
+                        android:layout_height="@dimen/nav_drawericonsize"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/shoppingbags" />
+
+                    <TextView
+                        android:id="@+id/tv_cart"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="50dp"
+                        android:text="@string/review_cart"
+                        android:textSize="@dimen/nav_drawertextsize" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/nav_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/nav_drawer_rvpadding">
+
+                    <ImageView
+                        android:layout_width="@dimen/nav_drawericonsize"
+                        android:layout_height="@dimen/nav_drawericonsize"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/userprofile" />
+
+                    <TextView
+                        android:id="@+id/tv_profile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="50dp"
+                        android:text="@string/my_profile"
+                        android:textSize="@dimen/nav_drawertextsize" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/nav_notification"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/nav_drawer_rvpadding">
+
+                    <ImageView
+                        android:layout_width="@dimen/nav_drawericonsize"
+                        android:layout_height="@dimen/nav_drawericonsize"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/bell" />
+
+                    <TextView
+                        android:id="@+id/tv_notofication"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="50dp"
+                        android:text="@string/notification"
+                        android:textSize="@dimen/nav_drawertextsize" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/nav_rating"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/nav_drawer_rvpadding">
+
+                    <ImageView
+                        android:layout_width="@dimen/nav_drawericonsize"
+                        android:layout_height="@dimen/nav_drawericonsize"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/star" />
+
+                    <TextView
+                        android:id="@+id/tv_rating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="50dp"
+                        android:text="Ratings &amp; Review"
+                        android:textSize="@dimen/nav_drawertextsize" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/nav_wishlist"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/nav_drawer_rvpadding">
+
+                    <ImageView
+                        android:layout_width="@dimen/nav_drawericonsize"
+                        android:layout_height="@dimen/nav_drawericonsize"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/heart" />
+
+                    <TextView
+                        android:id="@+id/tv_wishlist"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="50dp"
+                        android:text="Wishlist"
+                        android:textSize="@dimen/nav_drawertextsize" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/nav_complaint"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/nav_drawer_rvpadding">
+
+                    <ImageView
+                        android:layout_width="@dimen/nav_drawericonsize"
+                        android:layout_height="@dimen/nav_drawericonsize"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/complaint" />
+
+                    <TextView
+                        android:id="@+id/tv_complain"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="50dp"
+                        android:text="@string/raise_a_complaint"
+                        android:textSize="@dimen/nav_drawertextsize" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/nav_faqs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/nav_drawer_rvpadding">
+
+                    <ImageView
+                        android:layout_width="@dimen/nav_drawericonsize"
+                        android:layout_height="@dimen/nav_drawericonsize"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/conversation" />
+
+                    <TextView
+                        android:id="@+id/tv_faqs"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="50dp"
+                        android:text="@string/faqs"
+                        android:textSize="@dimen/nav_drawertextsize" />
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_gravity="bottom"
+                    android:gravity="bottom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/gilroymedium"
+                        android:textColor="@color/color_black"
+                        android:text="Contact Support" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Call us: " />
+
+                        <TextView
+                            android:fontFamily="@font/gilroymedium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:textColor="@color/color_black"
+                            android:text="@string/contactno" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Mail us: " />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:fontFamily="@font/gilroymedium"
+                            android:textColor="@color/color_black"
+                            android:text="@string/supportemail" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+</layout>

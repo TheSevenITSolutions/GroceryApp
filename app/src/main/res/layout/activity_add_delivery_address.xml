@@ -1,0 +1,473 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activities.AddDeliveryAddressActivity">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/lyt_appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:paddingVertical="10dp">
+
+                <ImageView
+                    android:id="@+id/img_aerrow_back"
+                    android:layout_width="45dp"
+                    android:layout_height="35dp"
+                    android:layout_centerVertical="true"
+                    android:onClick="onClickBack"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_sharp_arrow_back_24"
+                    app:tint="@color/color_black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@id/img_aerrow_back"
+                    android:text="Add Delivery Address"
+                    android:textColor="@color/color_black"
+                    android:textSize="16sp" />
+
+            </RelativeLayout>
+        </androidx.appcompat.widget.Toolbar>
+
+        <RelativeLayout
+            android:layout_below="@+id/lyt_appbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/lyt_bottom">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="15dp">
+
+                    <EditText
+                        android:imeOptions="actionNext"
+                        android:inputType="textCapSentences"
+                        android:nextFocusUp="@id/et_lName"
+                        android:id="@+id/et_fName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/gilroymedium"
+                        android:hint="First Name*"
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/add_deliveryaddress_text" />
+
+                    <EditText
+                        android:imeOptions="actionNext"
+                        android:inputType="textCapSentences"
+                        android:nextFocusUp="@id/et_mobile"
+                        android:id="@+id/et_lName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/gilroymedium"
+                        android:hint="Last Name*"
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/add_deliveryaddress_text" />
+
+                    <EditText
+                        android:imeOptions="actionNext"
+                        android:inputType="phone"
+                        android:nextFocusUp="@id/et_mobile2"
+                        android:id="@+id/et_mobile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/gilroymedium"
+                        android:hint="Mobile No*"
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/add_deliveryaddress_text" />
+
+                    <EditText
+                        android:imeOptions="actionNext"
+                        android:inputType="phone"
+                        android:nextFocusUp="@id/et_houseNo"
+                        android:id="@+id/et_mobile2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/gilroymedium"
+                        android:hint="Alternate Mobile No"
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/add_deliveryaddress_text" />
+
+                    <EditText
+                        android:imeOptions="actionNext"
+                        android:inputType="number"
+                        android:nextFocusUp="@id/et_street"
+                        android:id="@+id/et_houseNo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/gilroymedium"
+                        android:hint="House No. Apaetment  Name*"
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/add_deliveryaddress_text" />
+
+                    <EditText
+                        android:imeOptions="actionNext"
+                        android:inputType="textCapSentences"
+                        android:nextFocusUp="@id/et_pincode"
+                        android:id="@+id/et_socity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/gilroymedium"
+                        android:hint="Society*"
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/add_deliveryaddress_text" />
+
+                    <EditText
+                        android:imeOptions="actionNext"
+                        android:inputType="textCapSentences"
+                        android:nextFocusUp="@id/et_landmark"
+                        android:id="@+id/et_street"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/gilroymedium"
+                        android:hint="Street*"
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/add_deliveryaddress_text" />
+
+                    <EditText
+                        android:imeOptions="normal"
+                        android:inputType="textCapSentences"
+                        android:id="@+id/et_landmark"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/gilroymedium"
+                        android:hint="Landmark*"
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/add_deliveryaddress_text" />
+
+                    <TextView
+                        android:id="@+id/et_city"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:drawableEnd="@drawable/ic_round_keyboard_arrow_down_24"
+                        android:fontFamily="@font/gilroymedium"
+                        android:gravity="center_vertical"
+                        android:paddingVertical="10dp"
+                        android:paddingStart="3dp"
+                        android:text="City*"
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/add_deliveryaddress_text" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginHorizontal="3dp"
+                        android:background="@android:color/darker_gray" />
+
+                    <TextView
+                        android:id="@+id/et_pincode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/ic_round_keyboard_arrow_down_24"
+                        android:fontFamily="@font/gilroymedium"
+                        android:paddingVertical="10dp"
+                        android:paddingStart="3dp"
+                        android:text="Pincode"
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/add_deliveryaddress_text" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginHorizontal="3dp"
+                        android:background="@android:color/darker_gray" />
+
+                    <TextView
+                        android:id="@+id/et_aera"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/ic_round_keyboard_arrow_down_24"
+                        android:fontFamily="@font/gilroymedium"
+                        android:paddingVertical="10dp"
+                        android:paddingStart="3dp"
+                        android:text="Aera*"
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/add_deliveryaddress_text" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginHorizontal="3dp"
+                        android:background="@android:color/darker_gray" />
+
+
+
+                    <LinearLayout
+                        android:id="@+id/lytLocation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_margin="5dp"
+                            android:src="@drawable/ic_baseline_location_on_24" />
+
+                        <TextView
+                            android:id="@+id/tvLocation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="Set Location"
+                            android:textColor="@color/color_black" />
+
+                        <ImageView
+                            android:id="@+id/imglocationDone"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="10dp"
+                            android:src="@drawable/check"
+                            android:visibility="gone" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="10dp"
+                        android:fontFamily="@font/gilroymedium"
+                        android:text="Address Type*"
+                        android:textColor="@color/color_black"
+                        android:textSize="16sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingVertical="5dp">
+
+                            <View
+                                android:layout_width="7dp"
+                                android:layout_height="7dp"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="5dp"
+                                android:background="@drawable/bg_offwhiteround" />
+
+                            <RadioButton
+                                android:id="@+id/rHome"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="15dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="70dp"
+                                android:fontFamily="@font/gilroymedium"
+                                android:text="Home"
+                                android:textSize="14sp" />
+
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginEnd="10dp"
+                                android:contentDescription="TODO"
+                                android:src="@drawable/ic_outline_home_24"
+                                android:tint="@color/colorPrimary" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingVertical="5dp">
+
+                            <View
+                                android:layout_width="7dp"
+                                android:layout_height="7dp"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="5dp"
+                                android:background="@drawable/bg_offwhiteround" />
+
+                            <RadioButton
+                                android:id="@+id/rOffice"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="15dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="70dp"
+                                android:fontFamily="@font/gilroymedium"
+                                android:text="Work"
+                                android:textSize="14sp" />
+
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginEnd="10dp"
+                                android:src="@drawable/ic_baseline_home_work_24"
+                                android:tint="@color/colorPrimary" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingVertical="5dp">
+
+                            <View
+                                android:layout_width="7dp"
+                                android:layout_height="7dp"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="5dp"
+                                android:background="@drawable/bg_offwhiteround" />
+
+                            <RadioButton
+                                android:id="@+id/rOther"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="15dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="70dp"
+                                android:fontFamily="@font/gilroymedium"
+                                android:text="Other"
+                                android:textSize="14sp" />
+
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginEnd="10dp"
+                                android:src="@drawable/ic_baseline_public_24"
+                                android:tint="@color/colorPrimary" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp">
+
+                            <CheckBox
+                                android:id="@+id/chk_addressDefult"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="5dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="60dp"
+                                android:text="Make this address as defult"
+                                android:textColor="@color/color_black"
+                                android:textSize="14sp" />
+                        </RelativeLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+            </ScrollView>
+
+            <LinearLayout
+                android:id="@+id/lyt_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginVertical="20dp">
+
+                <TextView
+                    android:id="@+id/tv_addAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/bg_yellowbtn"
+                    android:gravity="center"
+                    android:paddingVertical="10dp"
+                    android:text="Add Address"
+                    android:textColor="@color/color_black" />
+            </LinearLayout>
+
+            <ProgressBar
+                android:id="@+id/pd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="gone" />
+
+            <RelativeLayout
+                android:id="@+id/rvMap"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone">
+
+                <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    android:id="@+id/myMap"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:context=".MainActivity" />
+
+                <TextView
+                    android:id="@+id/btnDone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="40dp"
+                    android:background="@drawable/bg_yellowbtn"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="5dp"
+                    android:text="Done"
+                    android:textColor="@color/color_black" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+    </RelativeLayout>
+</layout>

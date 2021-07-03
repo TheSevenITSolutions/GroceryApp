@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/app_placeholder"
+            android:id="@+id/img_product" />
+
+        <LinearLayout
+            android:layout_height="60dp"
+            android:layout_toEndOf="@id/img_product"
+            android:layout_marginStart="7dp"
+            android:layout_width="wrap_content"
+            android:layout_centerVertical="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Potato"
+                android:fontFamily="@font/gilroymedium"
+                android:textColor="@color/color_black"
+                android:textSize="14sp"
+                android:id="@+id/tv_productName" />
+
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$ 35"
+                android:textColor="@color/color_black"
+                android:textSize="12sp"
+                android:id="@+id/tv_productPrice" />
+
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_gravity="bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1 Kg"
+                android:fontFamily="@font/gilroymedium"
+                android:textSize="12sp"
+                android:id="@+id/tv_productWeight" />
+        </LinearLayout>
+
+        <TextView
+            android:visibility="gone"
+            android:layout_marginTop="3dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="40dp"
+            android:text="Move To Wishlist"
+            android:id="@+id/tv_movetoWishlist"
+            android:layout_alignParentEnd="true"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_outline_delete_24"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="15dp"
+            android:id="@+id/img_delete"
+            android:layout_centerVertical="true" />
+
+        <LinearLayout
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="45dp"
+            android:background="@drawable/bg_white_gray_10"
+            android:paddingVertical="1dp"
+            android:layout_alignParentEnd="true"
+            android:paddingHorizontal="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_baseline_remove_24"
+                android:id="@+id/img_minus"
+                app:tint="@color/colorPrimary" />
+
+            <TextView
+                android:id="@+id/tv_quantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginHorizontal="5dp"
+                android:layout_marginVertical="3dp" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_baseline_add_24"
+                android:id="@+id/img_plus"
+                app:tint="@color/colorPrimary" />
+
+        </LinearLayout>
+    </RelativeLayout>
+</layout>
