@@ -16,7 +16,6 @@ import com.delightbasket.grocery.adapters.DeliveryAddressOptionsAdapter;
 import com.delightbasket.grocery.configs.CommonFunctions;
 import com.delightbasket.grocery.databinding.ActivityDeliveryOptionsBinding;
 import com.delightbasket.grocery.model.Address;
-import com.delightbasket.grocery.model.User;
 import com.delightbasket.grocery.retrofit.Const;
 import com.delightbasket.grocery.retrofit.RetrofitBuilder;
 import com.delightbasket.grocery.retrofit.RetrofitService;

@@ -265,7 +265,9 @@ public class SearchActivity extends AppCompatActivity implements SwipeRefreshLay
             case 3:
                 sortingBinding.rb3.setChecked(true);
                 break;
-
+            case 4:
+                sortingBinding.rb4.setChecked(true);
+                break;
 
             default:
 
@@ -354,6 +356,7 @@ public class SearchActivity extends AppCompatActivity implements SwipeRefreshLay
         sortingBinding.rb1.setChecked(false);
         sortingBinding.rb2.setChecked(false);
         sortingBinding.rb3.setChecked(false);
+        sortingBinding.rb4.setChecked(false);
 
     }
 
@@ -374,10 +377,11 @@ public class SearchActivity extends AppCompatActivity implements SwipeRefreshLay
                 sortingBinding.rb3.setChecked(true);
                 sortType = 3;
                 break;
-
-
+            case R.id.rb4:
+                sortingBinding.rb4.setChecked(true);
+                sortType = 4;
+                break;
             default:
-
         }
     }
 

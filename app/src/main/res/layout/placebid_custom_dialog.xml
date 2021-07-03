@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/custom_dialog_border"
+    android:elevation="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="32dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textSuccess"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:gravity="center"
+            android:text="Congratulation You have save $20 on your order"
+            android:textColor="@color/color_black"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="22dp"
+            android:src="@drawable/order_success" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:gravity="center"
+            android:text="@string/your_order_has_been_placed"
+            android:textColor="@color/color_black"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/gilroylight"
+            android:gravity="center"
+            android:text="@string/your_order_has_been_processed_and_to_track_your_order_go_to_my_order"
+            android:textSize="16sp" />
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/btnViewOrder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginVertical="48dp"
+                android:background="@drawable/button_border"
+                android:gravity="center"
+                android:paddingHorizontal="80dp"
+                android:paddingVertical="16dp"
+                android:text="@string/view_order"
+                android:textColor="@color/color_black"
+                android:textSize="16sp" />
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -40,5 +40,10 @@
     <string name="contactno">18008901790</string>
     <string name="supportemail">Support@gmail.com</string>
     <string name="msg_NO_INTERNET_RESPOND">No internet connection</string>
-     <string name="categories">Categories</string>
+    <string name="categories">Categories</string>
+    <string name="fast_delivery">Fast delivery</string>
+    <string name="the_delivery_service_takes_extra_charges_and_it_will_delivered_with_in_45_min">The delivery service takes extra charges and it will delivered with in 45 min.</string>
+    <string name="your_order_has_been_placed">Your order has been placed</string>
+    <string name="your_order_has_been_processed_and_to_track_your_order_go_to_my_order">Your order has Been processed and to track your order go to my order.</string>
+    <string name="view_order">View Order</string>
 </resources>

@@ -26,14 +26,14 @@
                 android:paddingVertical="10dp">
 
                 <ImageView
-                    app:tint="@color/color_black"
                     android:id="@+id/img_aerrow_back"
                     android:layout_width="45dp"
                     android:layout_height="35dp"
                     android:layout_centerVertical="true"
                     android:onClick="onClickBack"
                     android:padding="5dp"
-                    android:src="@drawable/ic_sharp_arrow_back_24" />
+                    android:src="@drawable/ic_sharp_arrow_back_24"
+                    app:tint="@color/color_black" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -63,96 +63,148 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/lyt_appbar">
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:layout_above="@+id/lytbottom"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:id="@+id/lyt_top"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:orientation="horizontal"
-                    android:paddingStart="15dp">
-
-            <ImageView
-                android:layout_gravity="center"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/ic_baseline_location_on_24"
-                app:tint="@color/color_black" />
-
-                    <TextView
-                        android:layout_gravity="center"
-                        android:fontFamily="@font/gilroymedium"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="7dp"
-                        android:text="Deliver To"
-                        android:textColor="@color/color_black"
-                        android:textSize="22sp" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginTop="10dp"
-                    android:alpha=".7"
-                    android:background="@color/color_gray_lightbtn" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvAddress"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/lytbottom"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:orientation="vertical">
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#E8E7E7" />
+                android:layout_height="wrap_content">
 
                 <LinearLayout
-                    android:layout_height="70dp"
-                    android:elevation="7dp"
-                    android:id="@+id/lyt_bottom"
                     android:layout_width="match_parent"
-                    android:gravity="center">
+                    android:layout_height="match_parent"
+                    android:layout_above="@+id/lytbottom"
+                    android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:elevation="5dp"
-                        android:paddingHorizontal="120dp"
-                        android:id="@+id/tvPay"
-                        android:textSize="16sp"
+                    <LinearLayout
+                        android:id="@+id/lyt_top"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:background="@drawable/bg_yellowbtn"
-                        android:gravity="center"
-                        android:paddingVertical="10dp"
-                        android:text="Proceed To Pay"
-                        android:textColor="@color/color_black" />
+                        android:layout_marginTop="15dp"
+                        android:orientation="horizontal"
+                        android:paddingStart="15dp">
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_baseline_location_on_24"
+                            app:tint="@color/color_black" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="7dp"
+                            android:fontFamily="@font/gilroymedium"
+                            android:text="Deliver To"
+                            android:textColor="@color/color_black"
+                            android:textSize="22sp" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginTop="10dp"
+                        android:alpha=".7"
+                        android:background="@color/color_gray_lightbtn" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@+id/lytbottom"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="132dp"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/radioBtn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginHorizontal="8dp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingEnd="10dp">
+
+                                <TextView
+                                    android:id="@+id/tvUserName"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginVertical="5dp"
+                                    android:fontFamily="@font/gilroymedium"
+                                    android:text="@string/fast_delivery"
+                                    android:textColor="@color/color_black"
+                                    android:textSize="16sp" />
+
+                                <TextView
+                                    android:id="@+id/tvAddress"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/tvUserName"
+                                    android:layout_marginEnd="10dp"
+                                    android:text="@string/the_delivery_service_takes_extra_charges_and_it_will_delivered_with_in_45_min"
+                                    android:textSize="14sp" />
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
                 </LinearLayout>
 
-            </LinearLayout>
-</RelativeLayout>
+                <LinearLayout
+                    android:id="@+id/lytbottom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:orientation="vertical">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#E8E7E7" />
+
+                    <LinearLayout
+                        android:id="@+id/lyt_bottom"
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:elevation="7dp"
+                        android:gravity="center">
+
+                        <TextView
+                            android:id="@+id/tvPay"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@drawable/bg_yellowbtn"
+                            android:elevation="5dp"
+                            android:gravity="center"
+                            android:paddingHorizontal="120dp"
+                            android:paddingVertical="10dp"
+                            android:text="Proceed To Pay"
+                            android:textColor="@color/color_black"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </RelativeLayout>
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <ProgressBar
@@ -163,32 +215,32 @@
             android:indeterminateTint="@color/colorPrimary"
             android:visibility="gone" />
 
-            <RelativeLayout
-                android:id="@+id/lyt404"
+        <RelativeLayout
+            android:id="@+id/lyt404"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_centerInParent="true"
+            android:background="@color/color_white"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ImageView
                 android:layout_width="200dp"
                 android:layout_height="200dp"
-                android:layout_centerInParent="true"
-                android:background="@color/color_white"
-                android:orientation="vertical"
-                android:visibility="gone">
+                android:src="@drawable/nodata" />
 
-                <ImageView
-                    android:layout_width="200dp"
-                    android:layout_height="200dp"
-                    android:src="@drawable/nodata" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_gravity="center"
-                    android:fontFamily="@font/gilroymedium"
-                    android:gravity="bottom"
-                    android:scrollbarSize="22dp"
-                    android:text="No Data Found"
-                    android:textColor="@color/colorPrimary" />
-            </RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:fontFamily="@font/gilroymedium"
+                android:gravity="bottom"
+                android:scrollbarSize="22dp"
+                android:text="No Data Found"
+                android:textColor="@color/colorPrimary" />
+        </RelativeLayout>
 
     </RelativeLayout>
 

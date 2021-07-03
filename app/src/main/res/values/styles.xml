@@ -59,4 +59,8 @@
         <item name="android:topBright">@android:color/transparent</item>
         <item name="android:topDark">@android:color/transparent</item>
     </style>
+
+    <style name="CustomAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowBackground">@drawable/custom_dialog_border</item>
+    </style>
 </resources>

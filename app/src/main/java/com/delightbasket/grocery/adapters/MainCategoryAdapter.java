@@ -12,8 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.delightbasket.grocery.R;
 import com.delightbasket.grocery.activities.AllProductsActivity;
-import com.delightbasket.grocery.databinding.ItemCategoiresBinding;
-import com.delightbasket.grocery.databinding.ItemMainCategoryBinding;
 import com.delightbasket.grocery.databinding.ItemMainCategoryImagesBinding;
 import com.delightbasket.grocery.databinding.ItemProductBinding;
 import com.delightbasket.grocery.model.Categories;
@@ -84,7 +82,6 @@ public class MainCategoryAdapter extends RecyclerView.Adapter<MainCategoryAdapte
             Glide.with(binding.getRoot().getContext())
                     .load(mList.get(position).category_image)
                     .circleCrop()
-//                    .load(Const.BASE_IMG_URL + Const.Product + "/" + model.getProductImage().get(0))
                     .placeholder(R.drawable.app_placeholder)
                     .into(binding.imgCategory);
 

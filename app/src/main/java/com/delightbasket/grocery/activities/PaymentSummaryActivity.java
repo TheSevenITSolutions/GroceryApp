@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -49,11 +50,9 @@ import com.stripe.param.PaymentIntentCreateParams;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
-import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -181,23 +180,17 @@ public class PaymentSummaryActivity extends AppCompatActivity {
         v.startAnimation(a);
     }
 
-    private void deleteCartData() {
-
-
+    private void deleteCartData(long totalamount) {
         AppDatabase db = Room.databaseBuilder(this,
                 AppDatabase.class, Const.DB_NAME).allowMainThreadQueries().build();
 
 
         List<CartOffline> offlineList = db.cartDao().getall();
 
-        for(CartOffline cart : offlineList) {
+        for (CartOffline cart : offlineList) {
             db.cartDao().deleteObjbyPid(cart.getPriceUnitId());
         }
-
-        Intent intent = new Intent(PaymentSummaryActivity.this, MainActivity.class);
-        startActivity(intent);
-        finishAffinity();
-
+        showCustomDialog(totalamount);
 
     }
 
@@ -563,9 +556,7 @@ public class PaymentSummaryActivity extends AppCompatActivity {
                 if(response.code() == 200 && response.body() != null) {
                     if(response.body().getStatus() == 200) {
                         Toast.makeText(PaymentSummaryActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-
-                        deleteCartData();
-
+                        deleteCartData(totalamount);
 
                     } else {
                         Toast.makeText(PaymentSummaryActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
@@ -579,6 +570,22 @@ public class PaymentSummaryActivity extends AppCompatActivity {
             public void onFailure(Call<RestResponse> call, Throwable t) {
                 binding.pBar.setVisibility(View.GONE);
             }
+        });
+    }
+
+    private void showCustomDialog(long totalamount) {
+        View mDialogView = LayoutInflater.from(this).inflate(R.layout.placebid_custom_dialog, null);
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(this, R.style.CustomAlertDialog).setView(mDialogView);
+        mBuilder.setCancelable(false);
+        AlertDialog mAlertDialog = mBuilder.show();
+        TextView btnViewOrder;
+        btnViewOrder = mDialogView.findViewById(R.id.btnViewOrder);
+//        textSuccess = mDialogView.findViewById(R.id.textSuccess);
+//        textSuccess.setText("Congratulation You have save " + totalamount + " on your order");
+        btnViewOrder.setOnClickListener(v -> {
+            mAlertDialog.dismiss();
+            Intent intent = new Intent(PaymentSummaryActivity.this, MyOrdersActivity.class);
+            startActivity(intent);
         });
     }
 
