@@ -275,7 +275,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="10dp"
                         android:src="@drawable/ic_outline_home_24"
-                        android:tint="@color/colorPrimary" />
+                        app:tint="@color/colorPrimary" />
 
                 </RelativeLayout>
 
@@ -314,12 +314,13 @@
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="10dp"
                         android:src="@drawable/debitcard"
-                        android:tint="@color/colorPrimary" />
+                        app:tint="@color/colorPrimary" />
 
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/lytCard"
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 

@@ -23,4 +23,6 @@ public interface Const {
     String ProductID = "productid";
     String DB_NAME = "cartdatabase";
     int LIMIT = 10;
+    String CURRENCY_INR = "INR";
+    String RAZORPAY_API_KEY_ID = "rzp_test_8AKE88bZp1RJHm"; //key secret : cuOObxuAJUTtlvklNcFFbh1c
 }

@@ -19,6 +19,8 @@ import com.delightbasket.grocery.model.Otp;
 import com.delightbasket.grocery.model.Pincode;
 import com.delightbasket.grocery.model.ProductMain;
 import com.delightbasket.grocery.model.RatingRoot;
+import com.delightbasket.grocery.model.RazorpayOrderIdResponse;
+import com.delightbasket.grocery.model.RazorpaySuccessResponse;
 import com.delightbasket.grocery.model.RestResponse;
 import com.delightbasket.grocery.model.RestResponse2;
 import com.delightbasket.grocery.model.Search;
@@ -47,7 +49,6 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.PartMap;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface RetrofitService {
@@ -404,4 +405,15 @@ public interface RetrofitService {
 
     @GET("Settings/getFAQList")
     Call<FaqRoot> getFaqs(@Header("api-key") String key);
+
+    @FormUrlEncoded
+    @POST("Razorpay/razorpayOrderCreate")
+    Call<RazorpayOrderIdResponse> getRazorPayId(@Header("Authorization") String userToken, @Field("amount") String amount);
+
+    @FormUrlEncoded
+    @POST("Razorpay/razorpayPaymentSuccess")
+    Call<RazorpaySuccessResponse> getRazorPaymentSuccess(@Header("Authorization") String userToken,
+                                                         @Field("transaction_id") String transaction_id,
+                                                         @Field("order_id") String order_id,
+                                                         @Field("amount") String amount);
 }
