@@ -113,6 +113,44 @@
                                 android:fontFamily="@font/gilroymedium"
                                 android:textSize="14sp"
                                 tools:text="home surat panchdev soc 395008" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:orientation="horizontal"
+                            android:paddingStart="20dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:fontFamily="@font/gilroymedium"
+                                android:text="@string/my_wallet"
+                                android:textColor="@color/color_black"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:id="@+id/tvWallet"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="16dp"
+                                android:fontFamily="@font/gilroymedium"
+                                android:textColor="@color/color_black"
+                                android:textSize="18sp"
+                                tools:text="100" />
+
+                            <ImageView
+                                android:id="@+id/ivAddWallet"
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:layout_marginStart="12dp"
+                                android:src="@drawable/ic_baseline_add_24"
+                                app:tint="@color/colorPrimary" />
+
                         </LinearLayout>
 
                         <LinearLayout

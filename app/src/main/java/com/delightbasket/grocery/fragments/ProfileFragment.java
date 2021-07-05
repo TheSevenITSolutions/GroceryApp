@@ -1,5 +1,6 @@
 package com.delightbasket.grocery.fragments;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,7 +10,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -24,6 +27,7 @@ import com.bumptech.glide.Glide;
 import com.delightbasket.grocery.BuildConfig;
 import com.delightbasket.grocery.R;
 import com.delightbasket.grocery.SessionManager;
+import com.delightbasket.grocery.activities.AddWalletRazorpay;
 import com.delightbasket.grocery.activities.DeliveryAddressActivity;
 import com.delightbasket.grocery.activities.EditProfileActivity;
 import com.delightbasket.grocery.activities.LoginActivity;
@@ -37,12 +41,12 @@ import com.delightbasket.grocery.databinding.ItemLoginBinding;
 import com.delightbasket.grocery.model.Address;
 import com.delightbasket.grocery.model.RestResponse2;
 import com.delightbasket.grocery.model.User;
+import com.delightbasket.grocery.model.WalletDataResponse;
 import com.delightbasket.grocery.retrofit.Const;
 import com.delightbasket.grocery.retrofit.RetrofitBuilder;
 import com.delightbasket.grocery.retrofit.RetrofitService;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
@@ -80,7 +84,7 @@ public class ProfileFragment extends Fragment implements SwipeRefreshLayout.OnRe
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if(getActivity() != null) {
+        if (getActivity() != null) {
             sessionManager = new SessionManager(getActivity());
         }
         service = RetrofitBuilder.create(getActivity());
@@ -90,11 +94,58 @@ public class ProfileFragment extends Fragment implements SwipeRefreshLayout.OnRe
         getUserFromLocal();
         initListnear();
         binding.swipe.setOnRefreshListener(this);
+        binding.ivAddWallet.setOnClickListener(v -> {
+            showAddPriceDialog();
+        });
+    }
+
+    private void showAddPriceDialog() {
+        View mDialogView = LayoutInflater.from(getContext()).inflate(R.layout.add_wallet_dialog, null);
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(getContext(), R.style.CustomAlertDialog).setView(mDialogView);
+        mBuilder.setCancelable(false);
+        AlertDialog mAlertDialog = mBuilder.show();
+        EditText etPrice;
+        TextView btnAddMoney;
+        btnAddMoney = mDialogView.findViewById(R.id.btnAddMoney);
+        etPrice = mDialogView.findViewById(R.id.etPrice);
+        btnAddMoney.setOnClickListener(v -> {
+            mAlertDialog.dismiss();
+            Intent intent = new Intent(getContext(), AddWalletRazorpay.class);
+            intent.putExtra("Amount", etPrice.getText().toString());
+            startActivity(intent);
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        callGetWalletData();
+    }
+
+    private void callGetWalletData() {
+        binding.pd.setVisibility(View.VISIBLE);
+        Call<WalletDataResponse> call = service.getWalletData(Const.DEV_KEY, token);
+        call.enqueue(new Callback<WalletDataResponse>() {
+            @Override
+            public void onResponse(Call<WalletDataResponse> call, Response<WalletDataResponse> response) {
+                binding.pd.setVisibility(View.GONE);
+                if (response.code() == 200 && response.body().getStatus() == 200 && response.body().getData() != null) {
+                    binding.tvWallet.setText(response.body().getData().getAmount());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<WalletDataResponse> call, Throwable t) {
+                binding.pd.setVisibility(View.GONE);
+                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+
+        });
     }
 
     private void getUserFromLocal() {
 
-        if(sessionManager.getBooleanValue(Const.IS_LOGIN)) {
+        if (sessionManager.getBooleanValue(Const.IS_LOGIN)) {
             token = sessionManager.getUser().getData().getToken();
             User user = sessionManager.getUser();
             showUserDetails(user.getData());

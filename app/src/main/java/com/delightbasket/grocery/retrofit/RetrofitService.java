@@ -29,6 +29,7 @@ import com.delightbasket.grocery.model.ShippingChargeRoot;
 import com.delightbasket.grocery.model.SortRoot;
 import com.delightbasket.grocery.model.Summary;
 import com.delightbasket.grocery.model.User;
+import com.delightbasket.grocery.model.WalletDataResponse;
 import com.delightbasket.grocery.model.Wishlist;
 import com.google.gson.JsonObject;
 
@@ -408,12 +409,33 @@ public interface RetrofitService {
 
     @FormUrlEncoded
     @POST("Razorpay/razorpayOrderCreate")
-    Call<RazorpayOrderIdResponse> getRazorPayId(@Header("Authorization") String userToken, @Field("amount") String amount);
+    Call<RazorpayOrderIdResponse> getRazorPayId(@Header("api-key") String key, @Header("Authorization") String userToken, @Field("amount") String amount);
 
     @FormUrlEncoded
     @POST("Razorpay/razorpayPaymentSuccess")
-    Call<RazorpaySuccessResponse> getRazorPaymentSuccess(@Header("Authorization") String userToken,
+    Call<RazorpaySuccessResponse> getRazorPaymentSuccess(@Header("api-key") String key,
+                                                         @Header("Authorization") String userToken,
                                                          @Field("transaction_id") String transaction_id,
                                                          @Field("order_id") String order_id,
                                                          @Field("amount") String amount);
+
+    @FormUrlEncoded
+    @POST("Razorpay/walletAdd")
+    Call<RazorpaySuccessResponse> addWallet(@Header("api-key") String key,
+                                            @Header("Authorization") String userToken,
+                                            @Field("user_id") String user_id,
+                                            @Field("phone_number") String order_id,
+                                            @Field("amount") String amount,
+                                            @Field("transaction_id") String transaction_id,
+                                            @Field("transaction_status") String transaction_status);
+
+    @GET("Razorpay/walletAmountGet")
+    Call<WalletDataResponse> getWalletData(@Header("api-key") String key,
+                                           @Header("Authorization") String userToken);
+
+    @FormUrlEncoded
+    @POST("Razorpay/walletAmountDeductAmount")
+    Call<RazorpaySuccessResponse> walletAmountDeductAmount(@Header("api-key") String key,
+                                                           @Header("Authorization") String userToken,
+                                                           @Field("amount") String amount);
 }

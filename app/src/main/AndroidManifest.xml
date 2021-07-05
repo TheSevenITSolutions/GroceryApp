@@ -57,12 +57,13 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activities.AllCategoriesActivity">
-        </activity>
+        <activity android:name=".activities.AllCategoriesActivity"></activity>
 
         <activity
             android:name=".activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activities.MakePaymentActivity" />
+        <activity android:name=".activities.AddWalletRazorpay" />
 
         <service
             android:name=".MyFirebaseMessagingService"

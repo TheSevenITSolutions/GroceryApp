@@ -2,7 +2,6 @@ package com.delightbasket.grocery.activities;
 
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,8 +11,6 @@ import android.view.animation.Transformation;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
@@ -30,28 +27,18 @@ import com.delightbasket.grocery.databinding.BottomsheetProductweightBinding;
 import com.delightbasket.grocery.model.Address;
 import com.delightbasket.grocery.model.ApplyCoupon;
 import com.delightbasket.grocery.model.Coupon;
+import com.delightbasket.grocery.model.RazorpaySuccessResponse;
 import com.delightbasket.grocery.model.RestResponse;
 import com.delightbasket.grocery.model.ShippingChargeRoot;
+import com.delightbasket.grocery.model.WalletDataResponse;
 import com.delightbasket.grocery.retrofit.Const;
 import com.delightbasket.grocery.retrofit.RetrofitBuilder;
 import com.delightbasket.grocery.retrofit.RetrofitService;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.stripe.android.ApiResultCallback;
-import com.stripe.android.PaymentIntentResult;
-import com.stripe.android.Stripe;
-import com.stripe.android.model.ConfirmPaymentIntentParams;
-import com.stripe.android.model.PaymentIntent;
-import com.stripe.android.model.PaymentMethodCreateParams;
-import com.stripe.android.model.StripeIntent.Status;
-import com.stripe.android.view.CardInputWidget;
-import com.stripe.param.PaymentIntentCreateParams;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -66,12 +53,6 @@ public class PaymentSummaryActivity extends AppCompatActivity {
     boolean isShow = false;
     SessionManager sessionManager;
     private String token, user_id;
-    String transId = "XXXXXXX";
-    String cardType = "VISA";
-    String cardNo = "XXXXYYYYZZZZAAAA";
-    String cardExpDate = "2-22";
-    String cardHolderName = "ANURAGSSS";
-    String cardHolderEmail = "anurag@gmail.com";
     private RetrofitService service;
     private List<Coupon.Datum> coupons;
     BottomSheetDialog bottomSheetDialog;
@@ -80,9 +61,6 @@ public class PaymentSummaryActivity extends AppCompatActivity {
     private long totalamount = 0;
     long discount = 0;
     private long shippingCharge = 0;
-    String deliveryAddress = "";
-    private String paymentIntentClientSecret;
-    private Stripe stripe;
 
     String userAddress = "";
     private String lang = "";
@@ -95,6 +73,7 @@ public class PaymentSummaryActivity extends AppCompatActivity {
     private List<CartOffline> list = new ArrayList<>();
     private String couponCode = "";
     private boolean couponSelected = false;
+    double walletPrice = 0.0;
 
     private void radioButtonListnear() {
         binding.radioCash.setChecked(true);
@@ -102,15 +81,26 @@ public class PaymentSummaryActivity extends AppCompatActivity {
             if(isChecked) {
                 binding.radioOnline.setChecked(false);
                 binding.radioCash.setChecked(true);
+                binding.radioWallet.setChecked(false);
                 paymentType = 1;
                 toggleCardUI();
             }
         });
         binding.radioOnline.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if(isChecked) {
+            if (isChecked) {
                 binding.radioCash.setChecked(false);
                 binding.radioOnline.setChecked(true);
+                binding.radioWallet.setChecked(false);
                 paymentType = 2;
+                toggleCardUI();
+            }
+        });
+        binding.radioWallet.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                binding.radioOnline.setChecked(false);
+                binding.radioWallet.setChecked(true);
+                binding.radioCash.setChecked(false);
+                paymentType = 3;
                 toggleCardUI();
             }
         });
@@ -121,7 +111,7 @@ public class PaymentSummaryActivity extends AppCompatActivity {
             binding.lytCard.setVisibility(View.GONE);
             binding.btnPlaceOrder.setText("Place Order");
         } else {
-            binding.lytCard.setVisibility(View.VISIBLE);
+            binding.lytCard.setVisibility(View.GONE);
             binding.btnPlaceOrder.setText("Check Out");
         }
     }
@@ -155,31 +145,6 @@ public class PaymentSummaryActivity extends AppCompatActivity {
         v.startAnimation(a);
     }
 
-    public static void collapse(final View v) {
-        final int initialHeight = v.getMeasuredHeight();
-
-        Animation a = new Animation() {
-            @Override
-            protected void applyTransformation(float interpolatedTime, Transformation t) {
-                if(interpolatedTime == 1) {
-                    v.setVisibility(View.GONE);
-                } else {
-                    v.getLayoutParams().height = initialHeight - (int) (initialHeight * interpolatedTime);
-                    v.requestLayout();
-                }
-            }
-
-            @Override
-            public boolean willChangeBounds() {
-                return true;
-            }
-        };
-
-        // Collapse speed of 1dp/ms
-        a.setDuration((int) (initialHeight / v.getContext().getResources().getDisplayMetrics().density));
-        v.startAnimation(a);
-    }
-
     private void deleteCartData(long totalamount) {
         AppDatabase db = Room.databaseBuilder(this,
                 AppDatabase.class, Const.DB_NAME).allowMainThreadQueries().build();
@@ -194,13 +159,34 @@ public class PaymentSummaryActivity extends AppCompatActivity {
 
     }
 
+    private void callGetWalletData() {
+        binding.pBar.setVisibility(View.VISIBLE);
+        Call<WalletDataResponse> call = service.getWalletData(Const.DEV_KEY, token);
+        call.enqueue(new Callback<WalletDataResponse>() {
+            @Override
+            public void onResponse(Call<WalletDataResponse> call, Response<WalletDataResponse> response) {
+                binding.pBar.setVisibility(View.GONE);
+                if (response.code() == 200 && response.body().getStatus() == 200 && response.body().getData() != null) {
+                    walletPrice = Double.parseDouble(response.body().getData().getAmount());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<WalletDataResponse> call, Throwable t) {
+                binding.pBar.setVisibility(View.GONE);
+                Toast.makeText(PaymentSummaryActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+
+        });
+    }
+
     private void getCouponListData() {
         binding.pBar.setVisibility(View.VISIBLE);
         Call<Coupon> call = service.getCouponData(Const.DEV_KEY, token, user_id);
         call.enqueue(new Callback<Coupon>() {
             @Override
             public void onResponse(Call<Coupon> call, Response<Coupon> response) {
-                if(response.code() == 200 && response.body().getStatus() == 200 && !response.body().getData().isEmpty()) {
+                if (response.code() == 200 && response.body().getStatus() == 200 && !response.body().getData().isEmpty()) {
                     coupons = response.body().getData();
 
                     openCouponBottomSheet();
@@ -225,25 +211,15 @@ public class PaymentSummaryActivity extends AppCompatActivity {
             token = sessionManager.getUser().getData().getToken();
             user_id = sessionManager.getUser().getData().getUserId();
             Log.d("TAG", "onCreate: " + token);
-
             apiKey = Const.STRIPE_SECRET_KEY;
-
-            stripe = new Stripe(
-                    getApplicationContext(),
-                    Objects.requireNonNull(Const.STRIPE_PUBLISHABLE_KEY)
-            );
-
-
             initView();
             getShippingCharge();
             radioButtonListnear();
             initListnear();
-
+            callGetWalletData();
         }else{
             startActivity(new Intent(this, LoginActivity.class));
-
         }
-
     }
 
     private void applyCoupon() {
@@ -259,7 +235,7 @@ public class PaymentSummaryActivity extends AppCompatActivity {
                         binding.etCoupon.setText(couponCode);
                         subTotal = response.body().getData().getSubtotal();
                         setTotalPrice();
-                        binding.tvDiscountPrice.setText(getString(R.string.currency) + String.valueOf(response.body().getData().getCouponDiscount()));
+                        binding.tvDiscountPrice.setText(getString(R.string.currency) + response.body().getData().getCouponDiscount());
                         discount = response.body().getData().getCouponDiscount();
 
                         placeOrder();
@@ -383,25 +359,50 @@ public class PaymentSummaryActivity extends AppCompatActivity {
         binding.btnCoupon.setOnClickListener(v -> getCouponListData());
 
         binding.btnPlaceOrder.setOnClickListener(v -> {
-            if(paymentType == 1) {
-                if(couponSelected) {
+            if (paymentType == 1) {
+                if (couponSelected) {
                     applyCoupon();
                 } else {
                     placeOrder();
                 }
 
+            } else if (paymentType == 3) {
+                if (walletPrice > totalamount) {
+                    placeOrderUsingWallet();
+                } else {
+                    Toast.makeText(PaymentSummaryActivity.this, "You have not enough money to checkout", Toast.LENGTH_LONG).show();
+                }
             } else {
-                if(couponSelected) {
+                if (couponSelected) {
                     applyCoupon();
                 } else {
-                    PaymentMethodCreateParams params = binding.cardInputWidget.getPaymentMethodCreateParams();
-                    if(params != null) {
-                        confirmPayment();
-                    } else {
-                        Toast.makeText(this, "Enter Card Details", Toast.LENGTH_SHORT).show();
-                    }
+                    Intent intent = new Intent(PaymentSummaryActivity.this, MakePaymentActivity.class);
+                    intent.putExtra("Amount", String.valueOf(totalamount));
+                    startActivityForResult(intent, 2231);
                 }
             }
+        });
+    }
+
+    private void placeOrderUsingWallet() {
+        binding.pBar.setVisibility(View.VISIBLE);
+        Call<RazorpaySuccessResponse> call = service.walletAmountDeductAmount(Const.DEV_KEY, token, String.valueOf(totalamount));
+        call.enqueue(new Callback<RazorpaySuccessResponse>() {
+            @Override
+            public void onResponse(Call<RazorpaySuccessResponse> call, Response<RazorpaySuccessResponse> response) {
+                binding.pBar.setVisibility(View.GONE);
+                if (response.code() == 200 && response.body().getStatus() == 200) {
+                    deleteCartData(totalamount);
+                    showCustomDialog(100);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RazorpaySuccessResponse> call, Throwable t) {
+                binding.pBar.setVisibility(View.GONE);
+                Toast.makeText(PaymentSummaryActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+
         });
     }
 
@@ -418,46 +419,13 @@ public class PaymentSummaryActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 
-    private void confirmPayment() {
-
-        binding.pBar.setVisibility(View.VISIBLE);
-        new MyTask().execute();
-        Log.d(TAG, "confirmPayment: ");
-
-
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        // Handle the result of stripe.confirmPayment
-        stripe.onPaymentResult(requestCode, data, new PaymentResultCallback(this));
-        binding.pBar.setVisibility(View.GONE);
-    }
-
-    private void displayAlert(@NonNull String title,
-                              @Nullable String message, boolean b) {
-        binding.pBar.setVisibility(View.GONE);
-        AlertDialog.Builder builder = new AlertDialog.Builder(this)
-                .setTitle(title)
-                .setMessage(message);
-        builder.setPositiveButton("Ok", (dialog, which) -> {
-            if(b) {
-                placeOrder();
-            } else {
-                builder.create().dismiss();
-            }
-        });
-        builder.create().show();
-    }
 
     private void setTotalPrice() {
         totalamount = 0;
         totalamount = subTotal + shippingCharge;
-        binding.tvSubtotalPrice.setText(getString(R.string.currency) + String.valueOf(subTotal));
-        binding.tvtotalPrice.setText(getString(R.string.currency) + String.valueOf(totalamount));
-        binding.tvTotalPrice.setText(getString(R.string.currency) + String.valueOf(totalamount));
+        binding.tvSubtotalPrice.setText(getString(R.string.currency) + subTotal);
+        binding.tvtotalPrice.setText(getString(R.string.currency) + totalamount);
+        binding.tvTotalPrice.setText(getString(R.string.currency) + totalamount);
     }
 
     private void setSubTotal() {
@@ -516,45 +484,26 @@ public class PaymentSummaryActivity extends AppCompatActivity {
                 unitids,
                 quantities);
 
-        Log.e("Place order data: ","Key : " +Const.DEV_KEY );
-        Log.e("Place order data: ", "token : "+token);
+        Log.e("Place order data: ", "Key : " + Const.DEV_KEY);
+        Log.e("Place order data: ", "token : " + token);
         Log.e("Place order data: ", "user_id : " + user_id);
-        Log.e("Place order data: ", "totalamount : " + String.valueOf(totalamount));
-        Log.e("Place order data: ","paymentType : "+ String.valueOf(paymentType) );
-        Log.e("Place order data: ", "shippingCharge :"+String.valueOf(shippingCharge));
-        Log.e("Place order data: ", "Addressid : "+ address.getDeliveryAddressId());
-        Log.e("Place order data: ","discount : "+String.valueOf(discount) );
-        Log.e("Place order data: ","address : "+addressString );
-        Log.e("Place order data: ", "latitude : "+  lat );
-        Log.e("Place order data: ","longitude : "+lang );
-        Log.e("Place order data: ","product ids array : "+ String.valueOf(pids) );
-        Log.e("Place order data: ","unitids array : "+String.valueOf(unitids) );
-        Log.e("Place order data: ","quantities : "+String.valueOf(quantities) );
-
-//        HashMap<Object, Object> requestBody = new HashMap<Object, Object>();
-//        requestBody.put("user_id", user_id);
-//        requestBody.put("total_amount",String.valueOf(totalamount) );
-//        requestBody.put("payment_type",String.valueOf(paymentType) );
-//        requestBody.put("latitude", lat);
-//        requestBody.put("longitude", lang);
-//        requestBody.put("coupon_discount", discount);
-//        requestBody.put("shipping_charge", shippingCharge);
-//        requestBody.put("delivery_address_id", address.getDeliveryAddressId());
-
-//        Call<RestResponse> call = service.placeOrder(
-//                Const.DEV_KEY,
-//                token,
-//                requestBody,
-//                pids,
-//                unitids,
-//                quantities);
-
+        Log.e("Place order data: ", "totalamount : " + totalamount);
+        Log.e("Place order data: ", "paymentType : " + paymentType);
+        Log.e("Place order data: ", "shippingCharge :" + shippingCharge);
+        Log.e("Place order data: ", "Addressid : " + address.getDeliveryAddressId());
+        Log.e("Place order data: ", "discount : " + discount);
+        Log.e("Place order data: ", "address : " + addressString);
+        Log.e("Place order data: ", "latitude : " + lat);
+        Log.e("Place order data: ", "longitude : " + lang);
+        Log.e("Place order data: ", "product ids array : " + pids);
+        Log.e("Place order data: ", "unitids array : " + unitids);
+        Log.e("Place order data: ", "quantities : " + quantities);
 
         call.enqueue(new Callback<RestResponse>() {
             @Override
             public void onResponse(Call<RestResponse> call, Response<RestResponse> response) {
-                if(response.code() == 200 && response.body() != null) {
-                    if(response.body().getStatus() == 200) {
+                if (response.code() == 200 && response.body() != null) {
+                    if (response.body().getStatus() == 200) {
                         Toast.makeText(PaymentSummaryActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                         deleteCartData(totalamount);
 
@@ -580,137 +529,27 @@ public class PaymentSummaryActivity extends AppCompatActivity {
         AlertDialog mAlertDialog = mBuilder.show();
         TextView btnViewOrder;
         btnViewOrder = mDialogView.findViewById(R.id.btnViewOrder);
-//        textSuccess = mDialogView.findViewById(R.id.textSuccess);
-//        textSuccess.setText("Congratulation You have save " + totalamount + " on your order");
         btnViewOrder.setOnClickListener(v -> {
             mAlertDialog.dismiss();
+            onBackPressed();
+            onBackPressed();
+            onBackPressed();
             Intent intent = new Intent(PaymentSummaryActivity.this, MyOrdersActivity.class);
             startActivity(intent);
         });
     }
 
-    private static final class PaymentResultCallback
-            implements ApiResultCallback<PaymentIntentResult> {
-        @NonNull
-        private final WeakReference<PaymentSummaryActivity> activityRef;
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-        PaymentResultCallback(@NonNull PaymentSummaryActivity activity) {
-            activityRef = new WeakReference<>(activity);
-            Log.d(TAG, "PaymentResultCallback: ");
-        }
-
-        @Override
-        public void onSuccess(@NonNull PaymentIntentResult result) {
-            final PaymentSummaryActivity activity = activityRef.get();
-            if(activity == null) {
-                return;
+        if (requestCode == 2231) {
+            boolean message = data.getBooleanExtra("MESSAGE", false);
+            if (message) {
+                deleteCartData(totalamount);
+                showCustomDialog(100);
             }
-            PaymentIntent paymentIntent = result.getIntent();
-            Status status = paymentIntent.getStatus();
-            if(status == Status.Succeeded) {
-
-                // Payment completed successfully
-                Gson gson = new GsonBuilder().setPrettyPrinting().create();
-                Log.d(TAG, "onSuccess: payment== " + gson.toString());
-                long amount = paymentIntent.getAmount() / 100;
-                String message = "Amount: " + amount + "$" + "\n Status: " + paymentIntent.getStatus().toString();
-
-                activity.displayAlert(
-                        "Payment completed",
-                        message, true
-                );
-            } else if(status == Status.RequiresPaymentMethod) {
-                // Payment failed – allow retrying using a different payment method
-                activity.displayAlert(
-                        "Payment failed",
-                        Objects.requireNonNull(paymentIntent.getLastPaymentError()).getMessage(), false
-                );
-            }
-        }
-
-        @Override
-        public void onError(@NonNull Exception e) {
-            final PaymentSummaryActivity activity = activityRef.get();
-            if(activity == null) {
-                return;
-            }
-            // Payment request failed – allow retrying using the same payment method
-            Log.d(TAG, "onSuccess: error== " + e.toString());
-            activity.displayAlert("Error", e.getMessage(), false);
         }
     }
-
-    private class MyTask extends AsyncTask<String, String, String> {
-
-
-        @Override
-        protected String doInBackground(String... strings) {
-            binding.pBar.setVisibility(View.VISIBLE);
-            com.stripe.Stripe.apiKey = Const.STRIPE_SECRET_KEY;
-
-            PaymentIntentCreateParams params1 =
-                    PaymentIntentCreateParams.builder()
-                            .setAmount(totalamount * 100)
-                            .setDescription("User id :" + address.getUserId() + " email: " + sessionManager.getUser().getData().getEmail())
-                            .setReceiptEmail(sessionManager.getUser().getData().getEmail())
-                            //   .putExtraParam("email",sessionManager.getUser().getData().getEmail())
-                            .setShipping(
-                                    PaymentIntentCreateParams.Shipping.builder()
-                                            .setName(address.getFirstName().concat(" " + address.getLastName()))
-                                            .setPhone(address.getMobileNumber())
-                                            .setAddress(
-                                                    PaymentIntentCreateParams.Shipping.Address.builder()
-                                                            .setLine1(address.getHomeNo().concat(" " + address.getSociety().concat(" " + address.getArea())))
-                                                            .setPostalCode("91761")
-                                                            .setLine2(sessionManager.getUser().getData().getEmail())
-                                                            .setCity(address.getCity())
-                                                            .setState(address.getLandmark())
-                                                            .setCountry("US")
-                                                            .build())
-                                            .build())
-                            .setCurrency("USD")
-
-                            .addPaymentMethodType("card")
-                            .build();
-
-            com.stripe.model.PaymentIntent paymentIntent = null;
-
-            try {
-                paymentIntent = com.stripe.model.PaymentIntent.create(params1);
-            } catch(com.stripe.exception.StripeException e) {
-                e.printStackTrace();
-                Log.d(TAG, "startCheckout: errr 64 " + e);
-            }
-
-
-            paymentIntentClientSecret = paymentIntent != null ? paymentIntent.getClientSecret() : null;
-            Log.d(TAG, "doInBackground:0 " + paymentIntentClientSecret);
-
-            Log.d(TAG, "doInBackground:1 " + paymentIntentClientSecret);
-            return paymentIntentClientSecret;
-
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            if(paymentType == 2) {
-                CardInputWidget cardInputWidget = findViewById(R.id.cardInputWidget);
-                cardInputWidget.setPostalCodeRequired(false);
-                cardInputWidget.setPostalCodeEnabled(false);
-                PaymentMethodCreateParams params = cardInputWidget.getPaymentMethodCreateParams();
-
-                if(params != null && paymentIntentClientSecret != null) {
-                    Log.d(TAG, "confirmPayment: " + params.toString());
-                    ConfirmPaymentIntentParams confirmParams = ConfirmPaymentIntentParams
-                            .createWithPaymentMethodCreateParams(params, paymentIntentClientSecret);
-                    stripe.confirmPayment(PaymentSummaryActivity.this, confirmParams);
-                    Log.d(TAG, "onResponse: cps == " + confirmParams.getClientSecret());
-                }
-            }
-
-        }
-    }
-
 
 }

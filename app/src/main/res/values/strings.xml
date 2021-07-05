@@ -46,4 +46,7 @@
     <string name="your_order_has_been_placed">Your order has been placed</string>
     <string name="your_order_has_been_processed_and_to_track_your_order_go_to_my_order">Your order has Been processed and to track your order go to my order.</string>
     <string name="view_order">View Order</string>
+    <string name="my_wallet">My wallet:</string>
+    <string name="add_money">Add money</string>
+    <string name="wallet">Wallet</string>
 </resources>
