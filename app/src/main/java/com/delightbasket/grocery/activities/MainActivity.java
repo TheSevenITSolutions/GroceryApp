@@ -22,7 +22,6 @@ import androidx.databinding.ObservableInt;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
-import com.bumptech.glide.Glide;
 import com.delightbasket.grocery.R;
 import com.delightbasket.grocery.SessionManager;
 import com.delightbasket.grocery.databinding.ActivityMainBinding;
@@ -33,6 +32,7 @@ import com.delightbasket.grocery.fragments.HomeFragment;
 import com.delightbasket.grocery.fragments.NotificationFragment;
 import com.delightbasket.grocery.fragments.ProfileFragment;
 import com.delightbasket.grocery.fragments.RatingFragment;
+import com.delightbasket.grocery.fragments.SubscriptionListFragment;
 import com.delightbasket.grocery.fragments.WishlistFragment;
 import com.delightbasket.grocery.model.User;
 import com.delightbasket.grocery.retrofit.Const;
@@ -172,16 +172,20 @@ public class MainActivity extends AppCompatActivity {
 
         });
         binding.navToolbar.navComplaint.setOnClickListener(view -> {
-            if(sessionManager.getBooleanValue(Const.IS_LOGIN)) {
+            if (sessionManager.getBooleanValue(Const.IS_LOGIN)) {
                 pos.set(7);
                 closeDrawer();
-            }else{
+            } else {
                 startActivity(new Intent(this, LoginActivity.class));
             }
 
         });
         binding.navToolbar.navFaqs.setOnClickListener(view -> {
             pos.set(8);
+            closeDrawer();
+        });
+        binding.navToolbar.navSubscription.setOnClickListener(view -> {
+            pos.set(9);
             closeDrawer();
         });
 
@@ -241,7 +245,10 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new FAQsFragment();
                         title = "FAQs";
                         break;
-
+                    case 9:
+                        fragment = new SubscriptionListFragment();
+                        title = "Subscription";
+                        break;
                     default:
                         throw new IllegalStateException("Unexpected value: " + pos.get());
                 }
@@ -311,6 +318,9 @@ public class MainActivity extends AppCompatActivity {
             case 8:
                 binding.navToolbar.tvFaqs.setTypeface(face);
                 break;
+            case 9:
+                binding.navToolbar.tvSubscription.setTypeface(face);
+                break;
 
             default:
                 throw new IllegalStateException("Unexpected value: " + pos.get());
@@ -346,7 +356,9 @@ public class MainActivity extends AppCompatActivity {
             case 8:
                 binding.navToolbar.tvFaqs.setTypeface(face);
                 break;
-
+            case 9:
+                binding.navToolbar.tvSubscription.setTypeface(face);
+                break;
 
             default:
 

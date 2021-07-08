@@ -174,6 +174,29 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/nav_subscription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/nav_drawer_rvpadding">
+
+                    <ImageView
+                        android:layout_width="@dimen/nav_drawericonsize"
+                        android:layout_height="@dimen/nav_drawericonsize"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/subscription" />
+
+                    <TextView
+                        android:id="@+id/tv_subscription"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="50dp"
+                        android:text="Subscription"
+                        android:textSize="@dimen/nav_drawertextsize" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
                     android:id="@+id/nav_wishlist"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -192,6 +215,29 @@
                         android:layout_centerVertical="true"
                         android:layout_marginStart="50dp"
                         android:text="Wishlist"
+                        android:textSize="@dimen/nav_drawertextsize" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/nav_becomePartner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/nav_drawer_rvpadding">
+
+                    <ImageView
+                        android:layout_width="@dimen/nav_drawericonsize"
+                        android:layout_height="@dimen/nav_drawericonsize"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/handshake" />
+
+                    <TextView
+                        android:id="@+id/tv_become_partner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="50dp"
+                        android:text="Become a partner"
                         android:textSize="@dimen/nav_drawertextsize" />
 
                 </RelativeLayout>

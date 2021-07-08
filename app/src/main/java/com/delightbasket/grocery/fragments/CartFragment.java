@@ -42,7 +42,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -208,7 +207,7 @@ public class CartFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     }
 
     private long getCartdata(String id) {
-        AppDatabase db = Room.databaseBuilder(Objects.requireNonNull(getActivity()),
+        AppDatabase db = Room.databaseBuilder(requireActivity(),
                 AppDatabase.class, Const.DB_NAME).allowMainThreadQueries().build();
         Log.d("qqqq1", "getCartdata: " + id);
         if(!db.cartDao().getCartProduct(id).isEmpty()) {

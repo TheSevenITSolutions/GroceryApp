@@ -1,6 +1,5 @@
 package com.delightbasket.grocery.adapters;
 
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,15 +9,14 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.delightbasket.grocery.R;
-import com.delightbasket.grocery.activities.AllProductsActivity;
-import com.delightbasket.grocery.databinding.ItemCategoiresBinding;
 import com.delightbasket.grocery.databinding.ItemProductBinding;
+import com.delightbasket.grocery.databinding.ItemSubscriptionBinding;
 import com.delightbasket.grocery.model.Categories;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
+public class PostSubscriptionAdapter extends RecyclerView.Adapter<PostSubscriptionAdapter.CategoryViewHolder> {
 
     OnProductClickListener onProductClickListener;
     private List<Categories.Datum> mList = new ArrayList<>();
@@ -45,7 +43,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     @Override
     public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_categoires, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_subscription, parent, false);
         return new CategoryViewHolder(view);
     }
 
@@ -67,8 +65,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     }
 
     public class CategoryViewHolder extends RecyclerView.ViewHolder {
-        ItemCategoiresBinding binding;
-        ProductAdapter productAdapter = new ProductAdapter(true);
+        ItemSubscriptionBinding binding;
+        ProductAdapter productAdapter = new ProductAdapter(false);
 
         public CategoryViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -81,12 +79,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
             binding.tvCatTitle.setText(mList.get(position).getCategoryName());
 
             productAdapter.setOnProductClickListener((product, binding, work, priceUnit, quantity) -> onProductClickListener.onProductClick(product, binding, work, priceUnit, quantity));
-            binding.tvViewall.setOnClickListener(view -> {
-                Intent intent = new Intent(binding.getRoot().getContext(), AllProductsActivity.class);
-                intent.putExtra("cid", mList.get(position).getCategoryId());
-                intent.putExtra("cname", mList.get(position).getCategoryName());
-                binding.getRoot().getContext().startActivity(intent);
-            });
+
 
         }
     }

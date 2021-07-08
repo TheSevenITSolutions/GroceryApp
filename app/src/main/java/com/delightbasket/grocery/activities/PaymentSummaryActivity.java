@@ -31,11 +31,13 @@ import com.delightbasket.grocery.model.RazorpaySuccessResponse;
 import com.delightbasket.grocery.model.RestResponse;
 import com.delightbasket.grocery.model.ShippingChargeRoot;
 import com.delightbasket.grocery.model.WalletDataResponse;
+import com.delightbasket.grocery.model.schedulelistmodel.DataItem;
 import com.delightbasket.grocery.retrofit.Const;
 import com.delightbasket.grocery.retrofit.RetrofitBuilder;
 import com.delightbasket.grocery.retrofit.RetrofitService;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.gson.Gson;
+import com.stripe.android.Stripe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +53,9 @@ public class PaymentSummaryActivity extends AppCompatActivity {
     private static final String TAG = "paymentactivity";
     ActivityPaymentSummaryBinding binding;
     boolean isShow = false;
+    List<String> listSchedule = new ArrayList<>();
     SessionManager sessionManager;
+    List<DataItem> dataItem = new ArrayList<>();
     private String token, user_id;
     private RetrofitService service;
     private List<Coupon.Datum> coupons;
@@ -61,6 +65,9 @@ public class PaymentSummaryActivity extends AppCompatActivity {
     private long totalamount = 0;
     long discount = 0;
     private long shippingCharge = 0;
+    String deliveryAddress = "";
+    private String paymentIntentClientSecret;
+    private Stripe stripe;
 
     String userAddress = "";
     private String lang = "";
@@ -116,6 +123,7 @@ public class PaymentSummaryActivity extends AppCompatActivity {
         }
     }
 
+
     public static void expand(final View v) {
         int matchParentMeasureSpec = View.MeasureSpec.makeMeasureSpec(((View) v.getParent()).getWidth(), View.MeasureSpec.EXACTLY);
         int wrapContentMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
@@ -159,27 +167,6 @@ public class PaymentSummaryActivity extends AppCompatActivity {
 
     }
 
-    private void callGetWalletData() {
-        binding.pBar.setVisibility(View.VISIBLE);
-        Call<WalletDataResponse> call = service.getWalletData(Const.DEV_KEY, token);
-        call.enqueue(new Callback<WalletDataResponse>() {
-            @Override
-            public void onResponse(Call<WalletDataResponse> call, Response<WalletDataResponse> response) {
-                binding.pBar.setVisibility(View.GONE);
-                if (response.code() == 200 && response.body().getStatus() == 200 && response.body().getData() != null) {
-                    walletPrice = Double.parseDouble(response.body().getData().getAmount());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<WalletDataResponse> call, Throwable t) {
-                binding.pBar.setVisibility(View.GONE);
-                Toast.makeText(PaymentSummaryActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
-            }
-
-        });
-    }
-
     private void getCouponListData() {
         binding.pBar.setVisibility(View.VISIBLE);
         Call<Coupon> call = service.getCouponData(Const.DEV_KEY, token, user_id);
@@ -201,35 +188,63 @@ public class PaymentSummaryActivity extends AppCompatActivity {
         });
     }
 
+    public void check() {
+        if (binding.checkBox.isChecked()) {
+
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_payment_summary);
         sessionManager = new SessionManager(this);
         service = RetrofitBuilder.create(this);
-        if(sessionManager.getBooleanValue(Const.IS_LOGIN)) {
+        if (sessionManager.getBooleanValue(Const.IS_LOGIN)) {
             token = sessionManager.getUser().getData().getToken();
             user_id = sessionManager.getUser().getData().getUserId();
             Log.d("TAG", "onCreate: " + token);
+
             apiKey = Const.STRIPE_SECRET_KEY;
             initView();
             getShippingCharge();
             radioButtonListnear();
             initListnear();
             callGetWalletData();
-        }else{
+        } else {
             startActivity(new Intent(this, LoginActivity.class));
         }
     }
 
+    private void callGetWalletData() {
+        binding.pBar.setVisibility(View.VISIBLE);
+        Call<WalletDataResponse> call = service.getWalletData(Const.DEV_KEY, token);
+        call.enqueue(new Callback<WalletDataResponse>() {
+            @Override
+            public void onResponse(Call<WalletDataResponse> call, Response<WalletDataResponse> response) {
+                binding.pBar.setVisibility(View.GONE);
+                if (response.code() == 200 && response.body().getStatus() == 200 && response.body().getData() != null) {
+                    walletPrice = Double.parseDouble(response.body().getData().getAmount());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<WalletDataResponse> call, Throwable t) {
+                binding.pBar.setVisibility(View.GONE);
+                Toast.makeText(PaymentSummaryActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+
+        });
+    }
+
     private void applyCoupon() {
         binding.pBar.setVisibility(View.VISIBLE);
-        Call<ApplyCoupon> call = service.applyCoupon(Const.DEV_KEY, token, user_id,couponCode, String.valueOf(subTotal));
+        Call<ApplyCoupon> call = service.applyCoupon(Const.DEV_KEY, token, user_id, couponCode, String.valueOf(subTotal));
         call.enqueue(new Callback<ApplyCoupon>() {
             @Override
             public void onResponse(Call<ApplyCoupon> call, Response<ApplyCoupon> response) {
-                if(response.code() == 200) {
-                    if(response.body().getStatus() == 200 && response.body().getData() != null) {
+                if (response.code() == 200) {
+                    if (response.body().getStatus() == 200 && response.body().getData() != null) {
 
                         binding.etCoupon.setTextColor(ContextCompat.getColor(PaymentSummaryActivity.this, android.R.color.holo_green_light));
                         binding.etCoupon.setText(couponCode);
@@ -239,7 +254,7 @@ public class PaymentSummaryActivity extends AppCompatActivity {
                         discount = response.body().getData().getCouponDiscount();
 
                         placeOrder();
-                    } else if(response.body().getStatus() == 401) {
+                    } else if (response.body().getStatus() == 401) {
                         binding.etCoupon.setText(response.body().getMessage());
                         binding.etCoupon.setTextColor(ContextCompat.getColor(PaymentSummaryActivity.this, R.color.color_red));
 

@@ -92,4 +92,7 @@ dependencies {
 
     //razorpay
     implementation 'com.razorpay:checkout:1.5.16'
+    //rangesliderview
+    implementation 'com.github.channguyen:rsv:1.0.1'
+    implementation "com.github.skydoves:powerspinner:1.1.7"
 }

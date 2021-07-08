@@ -31,6 +31,9 @@ import com.delightbasket.grocery.model.Summary;
 import com.delightbasket.grocery.model.User;
 import com.delightbasket.grocery.model.WalletDataResponse;
 import com.delightbasket.grocery.model.Wishlist;
+import com.delightbasket.grocery.model.postsubscription.PostSubscriptionResponse;
+import com.delightbasket.grocery.model.schedulelistmodel.ScheduleListResponse;
+import com.delightbasket.grocery.model.subscriptionmodel.SubscriptionListByCategoryIdResponse;
 import com.google.gson.JsonObject;
 
 import java.util.HashMap;
@@ -93,6 +96,13 @@ public interface RetrofitService {
                                 @Field("user_id") String uid,
                                 @Field("start") int start,
                                 @Field("limit") int limit);
+
+    @FormUrlEncoded
+    @POST("Product/getProductList")
+    Call<Categories.Datum> getProductList(@Header("api-key") String key,
+                                          @Field("user_id") String uid,
+                                          @Field("start") int start,
+                                          @Field("limit") int limit);
 
 
     @GET("Product/getCategoryList")
@@ -438,4 +448,28 @@ public interface RetrofitService {
     Call<RazorpaySuccessResponse> walletAmountDeductAmount(@Header("api-key") String key,
                                                            @Header("Authorization") String userToken,
                                                            @Field("amount") String amount);
+
+    @FormUrlEncoded
+    @POST("subscription/getSubscriptionList")
+    Call<SubscriptionListByCategoryIdResponse> getSubscriptionList(@Header("Authorization") String userToken,
+                                                                   @Field("start") String start,
+                                                                   @Field("limit") String limit,
+                                                                   @Field("category_id") String category_id);
+
+    @GET("Product/getScheduleList")
+    Call<ScheduleListResponse> getScheduleList(@Header("Authorization") String userToken,
+                                               @Header("api-key") String key);
+
+    @FormUrlEncoded
+    @POST("subscription/postSubscription")
+    Call<PostSubscriptionResponse> getPostSubscription(@Header("Authorization") String userToken,
+                                                       @Header("api-key") String key,
+                                                       @Field("subscription_id") String SubscriptionId,
+                                                       @Field("product_id") String Product_id,
+                                                       @Field("schedule_id") String ScheduleId,
+                                                       @Field("quantity") String Quantity,
+                                                       @Field("price_unit_id") String Price_unit_id,
+                                                       @Field("delivery_address_id") String delivery_address_id,
+                                                       @Field("promo_code") String promo_code);
+
 }

@@ -13,7 +13,6 @@ import android.widget.FrameLayout;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.delightbasket.grocery.R;
 import com.delightbasket.grocery.SessionManager;
@@ -278,6 +277,7 @@ public class WishlistFragment extends Fragment {
             }
         });
     }
+
 
     private void openDeatailActivity(Wishlist.Datum datum) {
         Intent intent = new Intent(getActivity(), ProductDetailActivity.class);
