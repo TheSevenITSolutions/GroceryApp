@@ -27,13 +27,14 @@ import com.delightbasket.grocery.model.Search;
 import com.delightbasket.grocery.model.SearchCatProduct;
 import com.delightbasket.grocery.model.ShippingChargeRoot;
 import com.delightbasket.grocery.model.SortRoot;
+import com.delightbasket.grocery.model.SubsUserIdResponse;
+import com.delightbasket.grocery.model.SubscriptionListByCategoryIdResponse;
 import com.delightbasket.grocery.model.Summary;
 import com.delightbasket.grocery.model.User;
 import com.delightbasket.grocery.model.WalletDataResponse;
 import com.delightbasket.grocery.model.Wishlist;
 import com.delightbasket.grocery.model.postsubscription.PostSubscriptionResponse;
 import com.delightbasket.grocery.model.schedulelistmodel.ScheduleListResponse;
-import com.delightbasket.grocery.model.subscriptionmodel.SubscriptionListByCategoryIdResponse;
 import com.google.gson.JsonObject;
 
 import java.util.HashMap;
@@ -452,6 +453,7 @@ public interface RetrofitService {
     @FormUrlEncoded
     @POST("subscription/getSubscriptionList")
     Call<SubscriptionListByCategoryIdResponse> getSubscriptionList(@Header("Authorization") String userToken,
+                                                                   @Header("api-key") String key,
                                                                    @Field("start") String start,
                                                                    @Field("limit") String limit,
                                                                    @Field("category_id") String category_id);
@@ -471,5 +473,13 @@ public interface RetrofitService {
                                                        @Field("price_unit_id") String Price_unit_id,
                                                        @Field("delivery_address_id") String delivery_address_id,
                                                        @Field("promo_code") String promo_code);
+
+    @FormUrlEncoded
+    @POST("subscription/getSubscriptionListByUserId")
+    Call<SubsUserIdResponse> getSubscriptionListByUserId(@Header("Authorization") String userToken,
+                                                         @Header("api-key") String key,
+                                                         @Field("start") String start,
+                                                         @Field("limit") String limit,
+                                                         @Field("user_id") String userid);
 
 }

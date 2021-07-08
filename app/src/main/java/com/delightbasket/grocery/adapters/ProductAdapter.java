@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -166,7 +165,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
             if (!subs) {
                 bindingsubs.btnsubscribe.setOnClickListener(itemView -> {
-                    Toast.makeText(context, "subscribe", Toast.LENGTH_SHORT).show();
+
                     getSpinnerList(model.getProductId(), model.getPriceUnit().get(0).getPriceUnitId());
                 });
                 bindingsubs.tvProductname.setText(model.getProductName());

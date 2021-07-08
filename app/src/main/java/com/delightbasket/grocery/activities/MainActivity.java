@@ -34,6 +34,7 @@ import com.delightbasket.grocery.fragments.ProfileFragment;
 import com.delightbasket.grocery.fragments.RatingFragment;
 import com.delightbasket.grocery.fragments.SubscriptionListFragment;
 import com.delightbasket.grocery.fragments.WishlistFragment;
+import com.delightbasket.grocery.fragments.subscribedproduct.SubscribedProductFragment;
 import com.delightbasket.grocery.model.User;
 import com.delightbasket.grocery.retrofit.Const;
 
@@ -188,6 +189,10 @@ public class MainActivity extends AppCompatActivity {
             pos.set(9);
             closeDrawer();
         });
+        binding.navToolbar.navSubscribed.setOnClickListener(view -> {
+            pos.set(10);
+            closeDrawer();
+        });
 
         binding.appbarImgmenu.setOnClickListener(v -> binding.drawerLayout.openDrawer(Gravity.LEFT, true));
         binding.drawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
@@ -248,6 +253,10 @@ public class MainActivity extends AppCompatActivity {
                     case 9:
                         fragment = new SubscriptionListFragment();
                         title = "Subscription";
+                        break;
+                    case 10:
+                        fragment = new SubscribedProductFragment();
+                        title = "Subscribed";
                         break;
                     default:
                         throw new IllegalStateException("Unexpected value: " + pos.get());
@@ -321,7 +330,9 @@ public class MainActivity extends AppCompatActivity {
             case 9:
                 binding.navToolbar.tvSubscription.setTypeface(face);
                 break;
-
+            case 10:
+                binding.navToolbar.tvSubscribed.setTypeface(face);
+                break;
             default:
                 throw new IllegalStateException("Unexpected value: " + pos.get());
         }
