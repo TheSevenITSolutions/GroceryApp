@@ -46,7 +46,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     String tag = "rrrrrr";
     SessionManager sessionManager;
     Boolean subs;
-
     public ProductAdapter(Boolean subs) {
         this.subs = subs;
 
@@ -181,6 +180,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             }
 
 
+
         }
 
         private void getSpinnerList(String productId, String priceUnitId) {
@@ -203,7 +203,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             });
 
         }
-
         private void openBottomSheetWeight(List<DataItem> product, ItemSubsBinding binding, String productId, String priceUnitId) {
             if (context != null) {
                 BottomSheetDialog bottomSheetDialog;
@@ -219,7 +218,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
             }
         }
-
         private void initListener(ItemProductBinding binding, Categories.Product model, long quantity) {
             binding.tvProductweight.setOnClickListener(view -> onProductClickListener.onProductClick(model, binding, "WEIGHT", null, quantity));
             binding.imgProduct.setOnClickListener(view -> {

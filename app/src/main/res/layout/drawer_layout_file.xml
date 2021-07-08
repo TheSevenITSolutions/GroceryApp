@@ -172,7 +172,6 @@
                         android:textSize="@dimen/nav_drawertextsize" />
 
                 </RelativeLayout>
-
                 <RelativeLayout
                     android:id="@+id/nav_subscription"
                     android:layout_width="match_parent"
@@ -218,7 +217,6 @@
                         android:textSize="@dimen/nav_drawertextsize" />
 
                 </RelativeLayout>
-
                 <RelativeLayout
                     android:id="@+id/nav_becomePartner"
                     android:layout_width="match_parent"

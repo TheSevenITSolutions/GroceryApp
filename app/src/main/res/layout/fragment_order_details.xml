@@ -100,16 +100,15 @@
                 </LinearLayout>
 
                 <com.github.channguyen.rsv.RangeSliderView
+                    android:layout_marginBottom="20dp"
                     android:id="@+id/rsv_another"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginBottom="20dp"
                     rsv:barHeightPercent="0.09"
                     rsv:emptyColor="#a8aeb8"
                     rsv:filledColor="@color/colorPrimary"
                     rsv:rangeCount="4" />
-
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/tablayout"
                     android:layout_width="match_parent"

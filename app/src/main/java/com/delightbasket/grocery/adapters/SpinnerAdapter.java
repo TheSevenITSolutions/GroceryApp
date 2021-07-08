@@ -32,13 +32,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SpinnerAdapter extends RecyclerView.Adapter<SpinnerAdapter.WeightViewHolder> {
-    SessionManager sessionManager;
-    String productId;
-    String productUnitId;
     private List<DataItem> priceUnits;
     private ItemSubsBinding productadapterbinding;
     private BottomSheetDialog bottomSheetDialog;
     private Context context;
+    SessionManager sessionManager;
+    String productId;
+    String productUnitId;
 
     public SpinnerAdapter(List<DataItem> priceUnits, ItemSubsBinding productadapterbinding, BottomSheetDialog bottomSheetDialog, String productId, String priceUnitId) {
         this.priceUnits = priceUnits;

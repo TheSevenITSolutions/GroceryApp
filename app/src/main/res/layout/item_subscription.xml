@@ -8,26 +8,26 @@
     </data>
 
     <LinearLayout
+        android:background="@color/off_white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/off_white"
         android:orientation="vertical">
 
         <RelativeLayout
-            android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_width="match_parent"
             android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
             <TextView
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/gilroymedium"
+                android:textColor="@color/color_black"
                 android:id="@+id/tv_cat_title"
+                android:layout_marginStart="10dp"
+                android:text="Daily Fresh veggies"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="10dp"
-                android:fontFamily="@font/gilroymedium"
-                android:text="Daily Fresh veggies"
-                android:textColor="@color/color_black"
                 android:textSize="16sp" />
 
             <TextView
@@ -43,11 +43,11 @@
         </RelativeLayout>
 
         <androidx.recyclerview.widget.RecyclerView
+            android:paddingStart="2.5dp"
             android:id="@+id/recyclear_product"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingStart="2.5dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_product" />
 

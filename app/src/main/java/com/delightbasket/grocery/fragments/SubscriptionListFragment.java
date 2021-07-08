@@ -34,18 +34,18 @@ import retrofit2.Response;
 
 
 public class SubscriptionListFragment extends Fragment {
+    RetrofitService service;
+    private GoogleSignInClient mGoogleSignInClient;
     private static final int RC_SIGN_IN = 1000;
     private static final String TAG = "homefrag";
-    RetrofitService service;
     FragmentSubscriptionListBinding binding;
     Categories listItem;
     PostSubscriptionAdapter categoryAdapter = new PostSubscriptionAdapter();
     List<Categories> listPrice;
     MainCategoryAdapter mainCategoryAdapter = new MainCategoryAdapter();
     RecyclerView rvsubs;
-    BottomSheetDialog bottomSheetDialog;
-    private GoogleSignInClient mGoogleSignInClient;
     private SessionManager sessionManager;
+    BottomSheetDialog bottomSheetDialog;
     private String userid = null;
     private int start = 0;
     private List<Categories.Datum> dataList = new ArrayList<>();
