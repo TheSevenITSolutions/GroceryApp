@@ -1,6 +1,8 @@
 package com.delightbasket.grocery.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -62,15 +64,19 @@ public class SpleshActivity extends AppCompatActivity {
 
 
         new Handler().postDelayed(() -> {
-//            Intent i = new Intent(SpleshActivity.this,
-//                    MainActivity.class);
-//            startActivity(i);
-            //invoke the SecondActivity.
+            String MyPREFERENCES = "MyPrefs";
+            SharedPreferences sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+            boolean isLogin = sharedpreferences.getBoolean("isLogin", false);
+            if (isLogin) {
+                Intent i = new Intent(SpleshActivity.this, MainActivity.class);
+                startActivity(i);
+                finish();
+            } else {
+                Intent i = new Intent(SpleshActivity.this, LoginActivity.class);
+                startActivity(i);
+                finish();
+            }
 
-            Intent i = new Intent(SpleshActivity.this,
-                    MainActivity.class);
-            startActivity(i);
-            finish();
             //the current activity will get finished.
         }, SPLASH_SCREEN_TIME_OUT);
     }

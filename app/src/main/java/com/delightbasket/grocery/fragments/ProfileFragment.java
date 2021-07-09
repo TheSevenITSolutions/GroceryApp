@@ -33,7 +33,6 @@ import com.delightbasket.grocery.activities.EditProfileActivity;
 import com.delightbasket.grocery.activities.LoginActivity;
 import com.delightbasket.grocery.activities.MainActivity;
 import com.delightbasket.grocery.activities.MyOrdersActivity;
-import com.delightbasket.grocery.activities.SpleshActivity;
 import com.delightbasket.grocery.activities.WebActivity;
 import com.delightbasket.grocery.databinding.BottomSheetconfirmationBinding;
 import com.delightbasket.grocery.databinding.FragmentProfileBinding;
@@ -217,7 +216,7 @@ public class ProfileFragment extends Fragment implements SwipeRefreshLayout.OnRe
                         sessionManager.saveUser(new User());
                         sessionManager.saveStringValue(Const.USER_TOKEN, "");
                         sessionManager.saveBooleanValue(Const.IS_LOGIN, false);
-                        startActivity(new Intent(getContext(), SpleshActivity.class));
+                        startActivity(new Intent(getContext(), LoginActivity.class));
                         getActivity().finishAffinity();
                     } else {
                         Toast.makeText(getContext(), response.body().getResponseMessage(), Toast.LENGTH_SHORT).show();

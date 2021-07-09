@@ -1,6 +1,8 @@
 package com.delightbasket.grocery.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -191,10 +193,12 @@ public class OTPActivity extends AppCompatActivity {
                                 Log.d(TAG, String.valueOf(response.body().getData()));
                                 if (response.body().getSuccess_code() == 200) {
 //                            sessionManager.saveStringValue(Const.USER_TOKEN, String.valueOf(response.body().getData().getToken()));
-                                    if (response.body().getData().getStatus().equalsIgnoreCase("success")
-                                    ) {
-
-
+                                    if (response.body().getData().getStatus().equalsIgnoreCase("success")) {
+                                        String MyPREFERENCES = "MyPrefs";
+                                        SharedPreferences sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+                                        SharedPreferences.Editor myEdit = sharedpreferences.edit();
+                                        myEdit.putBoolean("isLogin", true);
+                                        myEdit.apply();
                                         sessionManager.saveBooleanValue(Const.IS_LOGIN, true);
                                         sessionManager.saveStringValue(Const.USER_TOKEN, LoginActivity.token);
                                         sessionManager.saveUser(LoginActivity.usersresponse);
@@ -208,8 +212,8 @@ public class OTPActivity extends AppCompatActivity {
                                             userId = sessionManager.getUser().getData().getUserId();
                                             Log.d(TAG, userId);
                                         }
-//                                        startActivity(new Intent(OTPActivity.this, MainActivity.class));
-                                        finish();
+                                        startActivity(new Intent(OTPActivity.this, MainActivity.class));
+//                                        finish();
                                     }else{
                                         CommonFunctions.destroyProgressBar();
                                         Toast.makeText(OTPActivity.this, "Otp not sent Please resend..", Toast.LENGTH_LONG).show();
