@@ -35,7 +35,7 @@
 
 
     <string name="map_key" translatable="true">---</string>
-    <string name="currency">$</string>
+    <string name="currency">INR</string>
 
     <string name="contactno">18008901790</string>
     <string name="supportemail">Support@gmail.com</string>

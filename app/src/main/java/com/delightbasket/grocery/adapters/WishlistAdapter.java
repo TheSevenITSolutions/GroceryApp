@@ -79,7 +79,8 @@ public class WishlistAdapter extends RecyclerView.Adapter<WishlistAdapter.Wishli
         public void setModel(Wishlist.Datum datum, int position) {
 
             Glide.with(binding.getRoot().getContext())
-                    .load(Const.BASE_IMG_URL + datum.getProductImage().get(0))
+                    .load("http://delightbasket.in/admin/public/upload/product/" +
+                            datum.getProductImage().get(0))
                     .placeholder(R.drawable.app_placeholder)
                     .into(binding.imgProduct);
 

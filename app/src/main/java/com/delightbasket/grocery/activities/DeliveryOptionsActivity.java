@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,7 +40,7 @@ public class DeliveryOptionsActivity extends AppCompatActivity implements SwipeR
     private String lat = "";
     private String lang = "";
     private Address.Datum addressObj;
-
+    String typeFast = "2";
     String TAG = "DeliveryOptionsActivity";
 
     @Override
@@ -134,13 +136,14 @@ public class DeliveryOptionsActivity extends AppCompatActivity implements SwipeR
                 intent.putExtra("address", new Gson().toJson(addressObj));
                 intent.putExtra("lat", lat);
                 intent.putExtra("lang", lang);
+                intent.putExtra("type", typeFast);
                 startActivity(intent);
             }
         });
     }
 
     private void initView() {
-
+        CheckBox radioBtn = findViewById(R.id.radioBtn);
 
         deliveryAddressOptionsAdapter = new DeliveryAddressOptionsAdapter();
         deliveryAddressOptionsAdapter.setOnAddressSelectListnear(address -> {
@@ -148,6 +151,17 @@ public class DeliveryOptionsActivity extends AppCompatActivity implements SwipeR
             lat = address.getLatitude();
             lang = address.getLongitude();
             addressObj = address;
+        });
+
+        radioBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    typeFast = "1";
+                } else {
+                    typeFast = "2";
+                }
+            }
         });
     }
 

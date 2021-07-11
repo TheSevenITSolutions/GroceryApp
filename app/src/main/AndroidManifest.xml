@@ -23,9 +23,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.OTPActivity"></activity>
-        <activity android:name=".activities.SignUpActivity"></activity>
-        <activity android:name=".activities.LoginActivity"></activity>
+        <activity android:name=".activities.SubscribeProductActivity"></activity>
+        <activity android:name=".activities.OTPActivity" />
+        <activity android:name=".activities.SignUpActivity" />
+        <activity android:name=".activities.LoginActivity" />
         <activity android:name=".activities.WebActivity" />
 
         <uses-library
@@ -56,9 +57,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".activities.AllCategoriesActivity"></activity>
-
+        <activity android:name=".activities.AllCategoriesActivity" />
         <activity
             android:name=".activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />

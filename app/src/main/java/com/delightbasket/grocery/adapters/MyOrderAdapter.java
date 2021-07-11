@@ -74,11 +74,11 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.MyOrderV
     }
 
     public void addData(List<OrderRoot.Datum> data) {
+        this.data.clear();
         for(int i = 0; i < data.size(); i++) {
             this.data.add(data.get(i));
-            notifyItemInserted(this.data.size() - 1);
         }
-
+        notifyDataSetChanged();
     }
 
     public interface OnOrderClickListnear {

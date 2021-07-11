@@ -90,7 +90,6 @@ public class DeliveryAddressOptionsAdapter extends RecyclerView.Adapter<Delivery
             }
             String s = getAddressType(address.getAddressType());
             binding.tvType.setText(s);
-
         }
 
         private String getAddressType(Long addressType) {

@@ -55,7 +55,8 @@ public class AddWalletRazorpay extends AppCompatActivity implements PaymentResul
     }
 
     private void createOrderOnRazorPay() {
-        Call<RazorpayOrderIdResponse> call = service.getRazorPayId(Const.DEV_KEY, token, amount);
+        int finalAmount = (Integer.parseInt(amount) / 100);
+        Call<RazorpayOrderIdResponse> call = service.getRazorPayId(Const.DEV_KEY, token, String.valueOf(finalAmount));
         call.enqueue(new Callback<RazorpayOrderIdResponse>() {
             @Override
             public void onResponse(Call<RazorpayOrderIdResponse> call, Response<RazorpayOrderIdResponse> response) {

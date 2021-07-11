@@ -1,6 +1,5 @@
 package com.delightbasket.grocery.activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
@@ -205,17 +204,25 @@ public class ProductDetailActivity extends AppCompatActivity implements ProductP
         } else {
             binding.tvReadmore.setVisibility(View.GONE);
         }
-        if(!product.getPriceUnit().get(0).getPrice().isEmpty() && !product.getPriceUnit().get(0).getPrice().equals("")) {
+        if (!product.getPriceUnit().get(0).getPrice().isEmpty() && !product.getPriceUnit().get(0).getPrice().equals("")) {
             binding.tvProductprice.setText(getString(R.string.currency).concat(product.getPriceUnit().get(0).getPrice()));
         }
-        if(product.getIsWishlist() == 1) {
+        if (product.getIsWishlist() == 1) {
             binding.tvAddremoveToWishlist.setText("Remove From \n Wishlist");
             binding.imgwishlist.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.heartfill));
         } else {
             binding.tvAddremoveToWishlist.setText("Add to Wishlist");
             binding.imgwishlist.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.heart));
         }
-
+        int amount = 0;
+        float discountPrice = 0;
+        float finalPrice = 0;
+        for (int i = 0; i < product.getPriceUnit().size(); i++) {
+            amount = amount + Integer.parseInt(product.getPriceUnit().get(i).getPrice());
+            discountPrice = (discountPrice + product.getPriceUnit().get(i).getDiscountPrice());
+        }
+        finalPrice = 100 - ((discountPrice * 100) / amount);
+        binding.tvPer.setText(finalPrice + "%");
 
     }
 

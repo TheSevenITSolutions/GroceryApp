@@ -11,7 +11,6 @@ import com.bumptech.glide.Glide;
 import com.delightbasket.grocery.R;
 import com.delightbasket.grocery.dao.CartOffline;
 import com.delightbasket.grocery.databinding.ItemOrdersTextBinding;
-import com.delightbasket.grocery.retrofit.Const;
 
 import java.util.List;
 
@@ -39,7 +38,7 @@ public class OrderItemsTextAdapter extends RecyclerView.Adapter<OrderItemsTextAd
         holder.binding.tvWeight.setText(item.getUnit());
 
         Glide.with(holder.binding.getRoot().getContext())
-                .load(Const.BASE_IMG_URL + item.getImageUrl())
+                .load(item.getImageUrl())
                 .placeholder(R.drawable.app_placeholder)
                 .into(holder.binding.imgproduct);
 

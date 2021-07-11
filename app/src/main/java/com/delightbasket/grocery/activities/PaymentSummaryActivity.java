@@ -81,6 +81,7 @@ public class PaymentSummaryActivity extends AppCompatActivity {
     private String couponCode = "";
     private boolean couponSelected = false;
     double walletPrice = 0.0;
+    String typeFast = "2";
 
     private void radioButtonListnear() {
         binding.radioCash.setChecked(true);
@@ -315,14 +316,17 @@ public class PaymentSummaryActivity extends AppCompatActivity {
         Intent intent = getIntent();
         lat = intent.getStringExtra("lat");
         lang = intent.getStringExtra("lang");
-
+        typeFast = intent.getStringExtra("type");
         addressString = intent.getStringExtra("address");
-        if(addressString != null && !addressString.equals("")) {
+        if (addressString != null && !addressString.equals("")) {
             Address.Datum tempAddress = new Gson().fromJson(addressString, Address.Datum.class);
-            if(tempAddress != null) {
+            if (tempAddress != null) {
                 address = tempAddress;
                 setAddress();
             }
+        }
+        if (typeFast.equals("1")) {
+            shippingCharge = shippingCharge + 29;
         }
         AppDatabase db = Room.databaseBuilder(this,
                 AppDatabase.class, Const.DB_NAME).allowMainThreadQueries().build();

@@ -10,6 +10,7 @@ import com.delightbasket.grocery.model.CategoryProduct;
 import com.delightbasket.grocery.model.CityRoot;
 import com.delightbasket.grocery.model.ComplainRoot;
 import com.delightbasket.grocery.model.Coupon;
+import com.delightbasket.grocery.model.DeleteSubsResponse;
 import com.delightbasket.grocery.model.FaqRoot;
 import com.delightbasket.grocery.model.MainCategory;
 import com.delightbasket.grocery.model.NotificationRoot;
@@ -45,6 +46,7 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
@@ -54,6 +56,7 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.PartMap;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface RetrofitService {
@@ -481,5 +484,11 @@ public interface RetrofitService {
                                                          @Field("start") String start,
                                                          @Field("limit") String limit,
                                                          @Field("user_id") String userid);
+
+
+    @DELETE("subscription/deleteSubscription/{subscription_id}")
+    Call<DeleteSubsResponse> getDeleteSubs(@Header("Authorization") String userToken,
+                                           @Header("api-key") String key,
+                                           @Path("subscription_id") String subscription_id);
 
 }

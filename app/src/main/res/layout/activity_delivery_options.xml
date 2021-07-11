@@ -124,7 +124,7 @@
                         android:layout_marginBottom="132dp"
                         android:orientation="horizontal">
 
-                        <RadioButton
+                        <CheckBox
                             android:id="@+id/radioBtn"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
