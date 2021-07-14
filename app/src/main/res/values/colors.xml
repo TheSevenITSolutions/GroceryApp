@@ -12,5 +12,18 @@
     <color name="color_gray_lightbtn">#DCDBDB</color>
     <color name="off_white">#F2F3F6</color>
     <color name="veggigreen">#0FA932</color>
-    <color name="gray">#B1B6B2</color>
+    <color name="yellow">#26F8A44C</color>
+    <color name="green">#2653B175</color>
+    <color name="brown">#33F8A44C</color>
+    <color name="purple">#26D3B0E0</color>
+    <color name="blue">#26388EBD</color>
+    <color name="gray">#4D000000</color>
+
+    <array name="rainbow">
+        <item>@color/yellow</item>
+        <item>@color/green</item>
+        <item>@color/brown</item>
+        <item>@color/purple</item>
+        <item>@color/blue</item>
+    </array>
 </resources>

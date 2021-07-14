@@ -101,7 +101,7 @@ public class ProfileFragment extends Fragment implements SwipeRefreshLayout.OnRe
     private void showAddPriceDialog() {
         View mDialogView = LayoutInflater.from(getContext()).inflate(R.layout.add_wallet_dialog, null);
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(getContext(), R.style.CustomAlertDialog).setView(mDialogView);
-        mBuilder.setCancelable(false);
+        mBuilder.setCancelable(true);
         AlertDialog mAlertDialog = mBuilder.show();
         EditText etPrice;
         TextView btnAddMoney;

@@ -1,5 +1,6 @@
 package com.delightbasket.grocery.fragments.subscribedproduct.tabitemfragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.delightbasket.grocery.R;
 import com.delightbasket.grocery.SessionManager;
+import com.delightbasket.grocery.activities.LoginActivity;
 import com.delightbasket.grocery.adapters.SubsMainCategoryAdapter;
 import com.delightbasket.grocery.model.MainCategory;
 import com.delightbasket.grocery.model.SubscriptionListByCategoryIdResponse;
@@ -66,8 +68,11 @@ public class SubsCategoryFragment extends Fragment {
         sessionManager = new SessionManager(requireContext());
         if (sessionManager.getBooleanValue(Const.IS_LOGIN)) {
             userid = sessionManager.getUser().getData().getUserId();
+            token = sessionManager.getUser().getData().getToken();
+        } else {
+            startActivity(new Intent(requireContext(), LoginActivity.class));
         }
-        token = sessionManager.getUser().getData().getToken();
+
         rvsubscategoryid = view.findViewById(R.id.rvSubsCategory);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false);
         rvsubscategoryid.setLayoutManager(layoutManager);

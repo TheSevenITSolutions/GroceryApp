@@ -96,4 +96,6 @@ dependencies {
     //rangesliderview
     implementation 'com.github.channguyen:rsv:1.0.1'
     implementation "com.github.skydoves:powerspinner:1.1.7"
+    //circular imageview
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 }

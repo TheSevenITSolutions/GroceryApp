@@ -1,6 +1,5 @@
 package com.delightbasket.grocery.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -60,18 +59,19 @@ public class SearchActivity extends AppCompatActivity implements SwipeRefreshLay
         binding = DataBindingUtil.setContentView(this, R.layout.activity_search);
         service = RetrofitBuilder.create(this);
         sessionManager = new SessionManager(this);
-        if(sessionManager.getBooleanValue(Const.IS_LOGIN)) {
+        if (sessionManager.getBooleanValue(Const.IS_LOGIN)) {
             userId = sessionManager.getUser().getData().getUserId();
             Log.d(TAG, "onCreate: " + sessionManager.getUser().getData().getDeviceToken());
 
-            isSort = true;
-            binding.shimmer.startShimmer();
-            initView();
-            initListnear();
-            binding.swipe.setOnRefreshListener(this);
-        }else{
-            startActivity(new Intent(this, LoginActivity.class));
+
+        } else {
+//            startActivity(new Intent(this, LoginActivity.class));
         }
+        isSort = true;
+        binding.shimmer.startShimmer();
+        initView();
+        initListnear();
+        binding.swipe.setOnRefreshListener(this);
 
     }
 
@@ -236,6 +236,7 @@ public class SearchActivity extends AppCompatActivity implements SwipeRefreshLay
         sortingBinding.rb1.setOnClickListener(this);
         sortingBinding.rb2.setOnClickListener(this);
         sortingBinding.rb3.setOnClickListener(this);
+        sortingBinding.rb4.setOnClickListener(this);
 
 
         setOldSortType();
@@ -281,7 +282,7 @@ public class SearchActivity extends AppCompatActivity implements SwipeRefreshLay
 
 
         Log.d(TAG, "getData: ok======sort  " + keyword + " " + start);
-        Call<SortRoot> call = service.getSortAll(Const.DEV_KEY, String.valueOf(sortType), Const.LIMIT, start, userId, keyword);
+        Call<SortRoot> call = service.getSortAll(Const.DEV_KEY, String.valueOf(sortType), Const.LIMIT, start, keyword);
         call.enqueue(new Callback<SortRoot>() {
             @Override
             public void onResponse(Call<SortRoot> call, Response<SortRoot> response) {

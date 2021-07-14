@@ -1,21 +1,25 @@
 package com.delightbasket.grocery.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.delightbasket.grocery.R;
 import com.delightbasket.grocery.SessionManager;
+import com.delightbasket.grocery.activities.LoginActivity;
 import com.delightbasket.grocery.adapters.MainCategoryAdapter;
 import com.delightbasket.grocery.adapters.PostSubscriptionAdapter;
+import com.delightbasket.grocery.adapters.SortAdapter;
+import com.delightbasket.grocery.databinding.BottomsheetSortingBinding;
 import com.delightbasket.grocery.databinding.FragmentSubscriptionListBinding;
 import com.delightbasket.grocery.model.Categories;
 import com.delightbasket.grocery.model.MainCategory;
@@ -34,23 +38,32 @@ import retrofit2.Response;
 
 
 public class SubscriptionListFragment extends Fragment {
-    RetrofitService service;
-    private GoogleSignInClient mGoogleSignInClient;
     private static final int RC_SIGN_IN = 1000;
     private static final String TAG = "homefrag";
+    private final int start = 0;
     FragmentSubscriptionListBinding binding;
     Categories listItem;
     PostSubscriptionAdapter categoryAdapter = new PostSubscriptionAdapter();
     List<Categories> listPrice;
     MainCategoryAdapter mainCategoryAdapter = new MainCategoryAdapter();
     RecyclerView rvsubs;
-    private SessionManager sessionManager;
     BottomSheetDialog bottomSheetDialog;
+    private final List<Categories.Datum> dataList = new ArrayList<>();
+    private final int sortType = 1;
+    private final String keyword = "";
     private String userid = null;
-    private int start = 0;
-    private List<Categories.Datum> dataList = new ArrayList<>();
+    private final int searchstart = 0;
+    RetrofitService service;
+    String token;
     private MainCategory mainCategoryList;
     private boolean isLoding = true;
+    private GoogleSignInClient mGoogleSignInClient;
+    private SessionManager sessionManager;
+    private String userId = "";
+    private BottomsheetSortingBinding sortingBinding;
+    private SortAdapter sortAdapter;
+    private boolean isSort = true;
+
 
     public SubscriptionListFragment() {
         // Required empty public constructor
@@ -64,6 +77,25 @@ public class SubscriptionListFragment extends Fragment {
     }
 
     @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        sessionManager = new SessionManager(requireContext());
+        service = RetrofitBuilder.create(getActivity());
+        if (sessionManager.getBooleanValue(Const.IS_LOGIN)) {
+            token = sessionManager.getUser().getData().getToken();
+            userid = sessionManager.getUser().getData().getUserId();
+            categoryAdapter = new PostSubscriptionAdapter();
+            rvsubs = binding.rvSubscription;
+            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false);
+            rvsubs.setLayoutManager(layoutManager);
+            getData();
+        } else {
+            startActivity(new Intent(getActivity(), LoginActivity.class));
+        }
+
+
+    }
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
@@ -71,24 +103,8 @@ public class SubscriptionListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_subscription_list, container, false);
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        sessionManager = new SessionManager(getContext());
-        service = RetrofitBuilder.create(getActivity());
-        categoryAdapter = new PostSubscriptionAdapter();
-        if (sessionManager.getBooleanValue(Const.IS_LOGIN)) {
-            userid = sessionManager.getUser().getData().getUserId();
-        }
-        rvsubs = view.findViewById(R.id.rv_Subscription);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false);
-        rvsubs.setLayoutManager(layoutManager);
-
-        getData();
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_subscription_list, container, false);
+        return binding.getRoot();
     }
 
     private void getData() {

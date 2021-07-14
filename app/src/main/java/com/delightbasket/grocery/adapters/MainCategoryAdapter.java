@@ -1,6 +1,7 @@
 package com.delightbasket.grocery.adapters;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,6 +79,8 @@ public class MainCategoryAdapter extends RecyclerView.Adapter<MainCategoryAdapte
         }
 
         public void setModel(int position) {
+            String[] mColors = {"#26F8A44C", "#2653B175", "#33F8A44C", "#26D3B0E0", "#26388EBD"};
+            binding.cardcolor.setCardBackgroundColor(Color.parseColor(mColors[position % 5]));
             binding.txtCategory.setText(mList.get(position).category_name);
             Glide.with(binding.getRoot().getContext())
                     .load(mList.get(position).category_image)

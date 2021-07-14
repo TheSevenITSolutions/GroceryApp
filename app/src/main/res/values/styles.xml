@@ -63,4 +63,7 @@
     <style name="CustomAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:windowBackground">@drawable/custom_dialog_border</item>
     </style>
+
+    <style name="circle">
+        <![CDATA[<style name="circle">     <item name="cornerSize">50%</item> </style>]]></style>
 </resources>

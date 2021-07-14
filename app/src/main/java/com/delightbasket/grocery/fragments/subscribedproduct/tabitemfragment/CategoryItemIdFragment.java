@@ -1,6 +1,5 @@
 package com.delightbasket.grocery.fragments.subscribedproduct.tabitemfragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.delightbasket.grocery.R;
 import com.delightbasket.grocery.SessionManager;
-import com.delightbasket.grocery.activities.LoginActivity;
 import com.delightbasket.grocery.adapters.SubsCategoryAdapter;
 import com.delightbasket.grocery.adapters.SubsMainCategoryAdapter;
 import com.delightbasket.grocery.model.MainCategory;
@@ -73,7 +71,7 @@ public class CategoryItemIdFragment extends Fragment {
         if (sessionManager.getBooleanValue(Const.IS_LOGIN)) {
             token = sessionManager.getUser().getData().getToken();
         } else {
-            startActivity(new Intent(getActivity(), LoginActivity.class));
+//            startActivity(new Intent(getActivity(), LoginActivity.class));
         }
         if (sessionManager.getBooleanValue(Const.IS_LOGIN)) {
             userid = sessionManager.getUser().getData().getUserId();

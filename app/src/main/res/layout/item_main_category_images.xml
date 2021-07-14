@@ -1,22 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutBack"
+        android:theme="@style/Theme.MaterialComponents.DayNight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="8dp">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/imgCategory"
-            android:layout_width="80dp"
-            android:layout_gravity="center"
-            android:layout_height="80dp"
-            android:src="@drawable/nodata" />
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardcolor"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:elevation="0dp"
+            app:cardBackgroundColor="@color/blue"
+            app:cardCornerRadius="100dp"
+            app:cardElevation="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+
+            >
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:background="@android:color/transparent"
+                android:id="@+id/imgCategory"
+                android:layout_width="80dp"
+                android:layout_gravity="center"
+                android:layout_height="80dp"
+                android:src="@drawable/img" />
+        </com.google.android.material.card.MaterialCardView>
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:layout_gravity="center"
+            app:layout_constraintEnd_toEndOf="@id/cardcolor"
+            app:layout_constraintStart_toStartOf="@id/cardcolor"
+            app:layout_constraintTop_toBottomOf="@id/cardcolor"
             android:id="@+id/txtCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -25,6 +46,6 @@
             android:layout_marginTop="8dp"
             android:text="@string/app_name" />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

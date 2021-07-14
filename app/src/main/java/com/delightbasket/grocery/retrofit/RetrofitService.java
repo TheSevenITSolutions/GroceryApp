@@ -325,7 +325,7 @@ public interface RetrofitService {
                               @Field("sort_by") String sortBy,
                               @Field("limit") int limit,
                               @Field("start") int start,
-                              @Field("user_id") String uid, @Field("search_keyword") String keyword);
+                              @Field("search_keyword") String keyword);
 
     @FormUrlEncoded
     @POST("Product/sortByProduct")
@@ -490,5 +490,12 @@ public interface RetrofitService {
     Call<DeleteSubsResponse> getDeleteSubs(@Header("Authorization") String userToken,
                                            @Header("api-key") String key,
                                            @Path("subscription_id") String subscription_id);
+
+    @FormUrlEncoded
+    @POST("subscription/subscriptionPauseResume")
+    Call<DeleteSubsResponse> pauseResumeSubscription(@Header("Authorization") String userToken,
+                                                     @Header("api-key") String key,
+                                                     @Field("subscription_id") String subscription_id,
+                                                     @Field("pause_resume") String pause_resume);
 
 }

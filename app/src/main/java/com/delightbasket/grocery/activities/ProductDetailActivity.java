@@ -1,6 +1,8 @@
 package com.delightbasket.grocery.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
@@ -10,6 +12,7 @@ import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
@@ -193,13 +196,15 @@ public class ProductDetailActivity extends AppCompatActivity implements ProductP
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    @SuppressLint("SetTextI18n")
     private void setData() {
 
-        if(!product.getProductName().isEmpty() && !product.getProductName().equals("")) {
+        if (!product.getProductName().isEmpty() && !product.getProductName().equals("")) {
             binding.tvProductName.setText(product.getProductName());
         }
 
-        if(!product.getDescription().isEmpty() && !product.getDescription().equals("")) {
+        if (!product.getDescription().isEmpty() && !product.getDescription().equals("")) {
             binding.tvProductBenefits.setText(Html.fromHtml(product.getDescription()));
         } else {
             binding.tvReadmore.setVisibility(View.GONE);
@@ -216,13 +221,19 @@ public class ProductDetailActivity extends AppCompatActivity implements ProductP
         }
         int amount = 0;
         float discountPrice = 0;
-        float finalPrice = 0;
+        long finalPrice = 0;
         for (int i = 0; i < product.getPriceUnit().size(); i++) {
             amount = amount + Integer.parseInt(product.getPriceUnit().get(i).getPrice());
             discountPrice = (discountPrice + product.getPriceUnit().get(i).getDiscountPrice());
         }
-        finalPrice = 100 - ((discountPrice * 100) / amount);
-        binding.tvPer.setText(finalPrice + "%");
+        int new_Price = 0;
+        String price_str = "";
+        finalPrice = (long) (100 - ((discountPrice * 100) / amount));
+        Math.toIntExact(finalPrice);
+        price_str = String.valueOf(finalPrice);
+        new_Price = Integer.parseInt(price_str);
+
+        binding.tvPer.setText(new_Price + "%");
 
     }
 

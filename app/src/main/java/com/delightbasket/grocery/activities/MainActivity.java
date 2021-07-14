@@ -32,7 +32,6 @@ import com.delightbasket.grocery.fragments.HomeFragment;
 import com.delightbasket.grocery.fragments.NotificationFragment;
 import com.delightbasket.grocery.fragments.ProfileFragment;
 import com.delightbasket.grocery.fragments.RatingFragment;
-import com.delightbasket.grocery.fragments.SubscriptionListFragment;
 import com.delightbasket.grocery.fragments.WishlistFragment;
 import com.delightbasket.grocery.fragments.subscribedproduct.SubscribedProductFragment;
 import com.delightbasket.grocery.model.User;
@@ -185,13 +184,21 @@ public class MainActivity extends AppCompatActivity {
             pos.set(8);
             closeDrawer();
         });
-        binding.navToolbar.navSubscription.setOnClickListener(view -> {
-            pos.set(9);
-            closeDrawer();
+        binding.navToolbar.navSubscribed.setOnClickListener(view -> {
+            if (sessionManager.getBooleanValue(Const.IS_LOGIN)) {
+                pos.set(9);
+                closeDrawer();
+            } else {
+                startActivity(new Intent(this, LoginActivity.class));
+            }
         });
         binding.navToolbar.navSubscribed.setOnClickListener(view -> {
-            pos.set(10);
-            closeDrawer();
+            if (sessionManager.getBooleanValue(Const.IS_LOGIN)) {
+                pos.set(10);
+                closeDrawer();
+            } else {
+                startActivity(new Intent(this, LoginActivity.class));
+            }
         });
 
         binding.appbarImgmenu.setOnClickListener(v -> binding.drawerLayout.openDrawer(Gravity.LEFT, true));
@@ -251,7 +258,7 @@ public class MainActivity extends AppCompatActivity {
                         title = "FAQs";
                         break;
                     case 9:
-                        fragment = new SubscriptionListFragment();
+                        fragment = new SubscribedProductFragment();
                         title = "Subscription";
                         break;
                     case 10:
@@ -328,8 +335,6 @@ public class MainActivity extends AppCompatActivity {
                 binding.navToolbar.tvFaqs.setTypeface(face);
                 break;
             case 9:
-                binding.navToolbar.tvSubscription.setTypeface(face);
-                break;
             case 10:
                 binding.navToolbar.tvSubscribed.setTypeface(face);
                 break;
@@ -368,9 +373,9 @@ public class MainActivity extends AppCompatActivity {
                 binding.navToolbar.tvFaqs.setTypeface(face);
                 break;
             case 9:
-                binding.navToolbar.tvSubscription.setTypeface(face);
+            case 10:
+                binding.navToolbar.tvSubscribed.setTypeface(face);
                 break;
-
             default:
 
         }

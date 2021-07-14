@@ -69,8 +69,11 @@ public class SubsUserFragment extends Fragment {
         sessionManager = new SessionManager(requireContext());
         if (sessionManager.getBooleanValue(Const.IS_LOGIN)) {
             userid = sessionManager.getUser().getData().getUserId();
+            token = sessionManager.getUser().getData().getToken();
+        } else {
+//            startActivity(new Intent(requireContext(), LoginActivity.class));
         }
-        token = sessionManager.getUser().getData().getToken();
+
         rvsubsuserid = view.findViewById(R.id.rvsubsUser);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false);
         rvsubsuserid.setLayoutManager(layoutManager);

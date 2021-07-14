@@ -62,8 +62,66 @@ public class SubsUserAdapter extends RecyclerView.Adapter<SubsUserAdapter.SubsVi
                 .into(holder.binding.userproductImage);
 
         holder.binding.userproductname.setText(userId.get(position).getProductName());
+        if (userId.get(position).getPauseResume() == 1) {
+            holder.binding.ivResume.setVisibility(View.VISIBLE);
+            holder.binding.ivPause.setVisibility(View.INVISIBLE);
+        } else {
+            holder.binding.ivResume.setVisibility(View.INVISIBLE);
+            holder.binding.ivPause.setVisibility(View.VISIBLE);
+        }
         holder.binding.ivdeletesubs.setOnClickListener(view -> {
             deleteSubs(position);
+        });
+        holder.binding.ivPause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                holder.binding.pb.setVisibility(View.VISIBLE);
+                RetrofitService service;
+                service = RetrofitBuilder.create(context);
+                String token = sessionManager.getUser().getData().getToken();
+                Call<DeleteSubsResponse> delete = service.pauseResumeSubscription(token, Const.DEV_KEY, userId.get(position).getSubscription_id(),
+                        "1");
+                delete.enqueue(new Callback<DeleteSubsResponse>() {
+                    @Override
+                    public void onResponse(Call<DeleteSubsResponse> call, Response<DeleteSubsResponse> response) {
+                        holder.binding.pb.setVisibility(View.GONE);
+                        Toast.makeText(context, response.message(), Toast.LENGTH_LONG).show();
+                        holder.binding.ivResume.setVisibility(View.VISIBLE);
+                        holder.binding.ivPause.setVisibility(View.INVISIBLE);
+                    }
+
+                    @Override
+                    public void onFailure(Call<DeleteSubsResponse> call, Throwable t) {
+                        holder.binding.pb.setVisibility(View.GONE);
+                        Toast.makeText(context, t.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        });
+        holder.binding.ivResume.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                holder.binding.pb.setVisibility(View.VISIBLE);
+                RetrofitService service;
+                service = RetrofitBuilder.create(context);
+                String token = sessionManager.getUser().getData().getToken();
+                Call<DeleteSubsResponse> delete = service.pauseResumeSubscription(token, Const.DEV_KEY, userId.get(position).getSubscription_id(), "0");
+                delete.enqueue(new Callback<DeleteSubsResponse>() {
+                    @Override
+                    public void onResponse(Call<DeleteSubsResponse> call, Response<DeleteSubsResponse> response) {
+                        holder.binding.pb.setVisibility(View.GONE);
+                        Toast.makeText(context, response.message(), Toast.LENGTH_LONG).show();
+                        holder.binding.ivResume.setVisibility(View.INVISIBLE);
+                        holder.binding.ivPause.setVisibility(View.VISIBLE);
+                    }
+
+                    @Override
+                    public void onFailure(Call<DeleteSubsResponse> call, Throwable t) {
+                        holder.binding.pb.setVisibility(View.GONE);
+                        Toast.makeText(context, t.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
         });
     }
 
@@ -84,7 +142,7 @@ public class SubsUserAdapter extends RecyclerView.Adapter<SubsUserAdapter.SubsVi
 
             @Override
             public void onFailure(Call<DeleteSubsResponse> call, Throwable t) {
-
+                Toast.makeText(context, t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }
